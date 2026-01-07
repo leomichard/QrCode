@@ -1,17 +1,18 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <title>Quartz Qr Scan</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/app.css" />
+    <link rel="stylesheet" href="assets/app.css"/>
 </head>
 
 <body data-page="home" class="min-h-screen">
@@ -20,29 +21,29 @@
 <main class="max-w-6xl mx-auto px-4 py-10">
     <div class="grid lg:grid-cols-2 gap-8 items-start">
         <section class="card p-6">
-            <div class="ty-overline text-slate-500">quartz</div>
-            <h1 class="ty-headline mt-2">Secure single-use scan</h1>
+            <div class="ty-overline text-slate-500">Quartz</div>
+            <h1 class="ty-headline mt-2">Secure Single-Use Scan</h1>
             <p class="ty-body-1 mt-3 text-slate-600">
-                Workshop platform: a main account (owner) + mechanics, generation and consumption of QR codes one-time.
+                Workshop Platform: One Owner Account, Multiple Mechanics, And One-Time QR Validation.
             </p>
 
             <div class="mt-6 flex flex-wrap gap-3">
-                <a href="register.html" class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2">Create a workshop</a>
-                <a href="login.html" class="btn-ghost px-5 py-3 rounded-xl ty-subtitle-2">Login</a>
+                <a href="register.html" class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2">Create A Workshop</a>
+                <a href="login.html" class="btn-ghost px-5 py-3 rounded-xl ty-subtitle-2">Sign In</a>
             </div>
 
             <div class="mt-6 grid sm:grid-cols-3 gap-3">
                 <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
-                    <div class="ty-subtitle-2">One-time</div>
-                    <div class="ty-caption text-slate-500 mt-1">Becomes obsolete after scanning</div>
+                    <div class="ty-subtitle-2">One-Time</div>
+                    <div class="ty-caption text-slate-500 mt-1">Becomes Obsolete After Scanning</div>
                 </div>
                 <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
                     <div class="ty-subtitle-2">Roles</div>
                     <div class="ty-caption text-slate-500 mt-1">Owner + Mechanics</div>
                 </div>
                 <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
-                    <div class="ty-subtitle-2">Traceability</div>
-                    <div class="ty-caption text-slate-500 mt-1">status + history</div>
+                    <div class="ty-subtitle-2">Promotions</div>
+                    <div class="ty-caption text-slate-500 mt-1">Visible To Everyone</div>
                 </div>
             </div>
         </section>
@@ -50,27 +51,39 @@
         <aside class="card p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <div class="ty-overline text-slate-500">preview</div>
-                    <div class="ty-subtitle-1 mt-1">qr status panel</div>
+                    <div class="ty-overline text-slate-500">Preview</div>
+                    <div class="ty-subtitle-1 mt-1">Points And History</div>
                 </div>
-                <span class="px-3 py-1 rounded-full border ty-caption" style="background:#fff; border-color:#B7CBD3; color:#374649;">
-            active
+                <span class="px-3 py-1 rounded-full border ty-caption"
+                      style="background:#fff; border-color:#B7CBD3; color:#374649;">
+            Active
           </span>
             </div>
 
             <div class="mt-6 p-5 rounded-2xl border border-slate-200 bg-slate-50">
-                <div class="ty-subtitle-1">qr #15021</div>
-                <div class="ty-caption text-slate-500 mt-1">expires in 7 days</div>
+                <div class="ty-subtitle-1">Earn Points With Each Scan</div>
+                <div class="ty-caption text-slate-500 mt-1">Owner Sees Shop Stats • Mechanic Sees Personal Stats</div>
                 <div class="mt-4 flex gap-3">
-                    <a href="qr-list.html" class="btn-ghost px-4 py-3 rounded-xl ty-subtitle-2">See the list</a>
-                    <a href="qr-create.html" class="btn-primary px-4 py-3 rounded-xl ty-subtitle-2">Generate</a>
+                    <a href="dashboard.html" class="btn-primary px-4 py-3 rounded-xl ty-subtitle-2">Open Dashboard</a>
+                    <a href="scan-result.html" class="btn-ghost px-4 py-3 rounded-xl ty-subtitle-2">Try Scan</a>
                 </div>
-                <p class="ty-caption text-slate-500 mt-4">
-                    <a class="a-red" href="register.html">Create an account</a>
-                </p>
             </div>
         </aside>
     </div>
+
+    <!-- Promotions Public Section -->
+    <section class="mt-10">
+        <div class="flex items-end justify-between gap-4">
+            <div>
+                <h2 class="ty-headline">Promotions Catalog</h2>
+                <p class="ty-body-2 mt-2 text-slate-600">These Promotions Are Visible Even If You Are Not Signed In.</p>
+            </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-3 gap-6" data-promotions-grid>
+            <!-- JS Injected -->
+        </div>
+    </section>
 </main>
 
 <div id="site-footer"></div>

@@ -1,9 +1,8 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
     <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <title>Quartz Qr Scan</title>
 
@@ -19,49 +18,62 @@
 <div id="site-header"></div>
 
 <main class="max-w-6xl mx-auto px-4 py-10">
-    <h1 class="ty-headline">team</h1>
-    <p class="ty-body-2 mt-2 text-slate-600">ajouter des mécaniciens au workshop (owner only côté backend).</p>
+    <h1 class="ty-headline">Team</h1>
+    <p class="ty-body-2 mt-2 text-slate-600">Owner Can Add Mechanics Inside The Same Workshop (Backend Later).</p>
 
     <div class="mt-6 grid lg:grid-cols-3 gap-6">
-        <section class="card p-6 lg:col-span-1">
-            <div class="ty-subtitle-1">add mechanic</div>
+        <section class="card p-6 lg:col-span-1" data-owner-only>
+            <div class="ty-subtitle-1">Add Mechanic</div>
             <form class="mt-5 space-y-4">
                 <div>
-                    <label class="ty-subtitle-2">email</label>
+                    <label class="ty-subtitle-2">Email</label>
                     <input class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="mec1@garage.com">
                 </div>
                 <div>
-                    <label class="ty-subtitle-2">temporary password</label>
+                    <label class="ty-subtitle-2">Temporary Password</label>
                     <input type="password" class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="••••••••">
                 </div>
-                <button type="button" class="btn-primary w-full rounded-xl px-4 py-3 ty-subtitle-2">add</button>
+                <button type="button" class="btn-primary w-full rounded-xl px-4 py-3 ty-subtitle-2">Add</button>
             </form>
         </section>
 
         <section class="card lg:col-span-2 overflow-hidden">
             <div class="p-5 border-b border-slate-200 flex items-center justify-between">
-                <div class="ty-subtitle-1">members</div>
-                <div class="ty-caption text-slate-500">workshop quartz garage</div>
+                <div class="ty-subtitle-1">Members</div>
+                <div class="ty-caption text-slate-500">Workshop Quartz Garage</div>
             </div>
 
             <div class="divide-y divide-slate-200">
                 <div class="p-5 flex items-center justify-between">
                     <div>
-                        <div class="ty-subtitle-2">leo (owner)</div>
+                        <div class="ty-subtitle-2">Shop Owner</div>
                         <div class="ty-caption text-slate-500 mt-1">owner@garage.com</div>
                     </div>
-                    <span class="ty-caption px-3 py-1 rounded-full" style="background:#374649;color:#fff;">owner</span>
+                    <span class="ty-caption px-3 py-1 rounded-full" style="background:#374649;color:#fff;">Owner</span>
                 </div>
 
                 <div class="p-5 flex items-center justify-between">
                     <div>
-                        <div class="ty-subtitle-2">mechanic 1</div>
+                        <div class="ty-subtitle-2">Mechanic 1</div>
                         <div class="ty-caption text-slate-500 mt-1">mec1@garage.com</div>
                     </div>
-                    <span class="ty-caption px-3 py-1 rounded-full border" style="background:#fff;border-color:#B7CBD3;color:#374649;">mechanic</span>
+                    <span class="ty-caption px-3 py-1 rounded-full border" style="background:#fff;border-color:#B7CBD3;color:#374649;">Mechanic</span>
+                </div>
+
+                <div class="p-5 flex items-center justify-between">
+                    <div>
+                        <div class="ty-subtitle-2">Mechanic 2</div>
+                        <div class="ty-caption text-slate-500 mt-1">mec2@garage.com</div>
+                    </div>
+                    <span class="ty-caption px-3 py-1 rounded-full border" style="background:#fff;border-color:#B7CBD3;color:#374649;">Mechanic</span>
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="mt-6 card p-6" data-guest-only>
+        <h2 class="ty-subtitle-1">Restricted Area</h2>
+        <p class="ty-body-2 mt-2 text-slate-600">Sign In As Owner To Manage The Team.</p>
     </div>
 </main>
 

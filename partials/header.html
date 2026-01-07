@@ -1,28 +1,60 @@
 <header class="border-b border-slate-200" style="background:#fff;">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <a href="index.html" class="flex items-center gap-3">
-            <img src="assets/imgs/logototal.svg" alt="Logo TotalEnergies" class="h-10 w-10 rounded-xl grid place-items-center text-white font-semibold" ></img>
+            <img src="assets/imgs/logototal.svg" alt="Logo TotalEnergies"
+                 class="h-10 w-10 rounded-xl grid place-items-center text-white font-semibold"></img>
             <div class="leading-tight">
                 <div class="ty-subtitle-1" style="color:#374649;">Quartz</div>
-                <div class="ty-caption text-slate-500 -mt-0.5">Totalenergies</div>
+                <div class="ty-caption text-slate-500 -mt-0.5">TotalEnergies</div>
             </div>
         </a>
 
         <nav class="hidden md:flex items-center gap-2">
             <a data-nav="home" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="index.html">Home</a>
-            <a data-nav="login" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="login.html">Login</a>
-            <a data-nav="register" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="register.html">Register</a>
+
+            <a data-nav="login" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="login.html"
+               data-guest-only>Sign In</a>
+            <a data-nav="register" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="register.html"
+               data-guest-only>Register</a>
+
+            <a data-nav="dashboard" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="dashboard.html"
+               data-auth-only>Dashboard</a>
+            <a data-nav="team" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="team.html"
+               data-owner-only>Team</a>
+            <a data-nav="qr-create" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="qr-create.html"
+               data-owner-only>Create QR</a>
+            <a data-nav="qr-list" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="qr-list.html"
+               data-auth-only>QR List</a>
+            <a data-nav="scan-result" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="scan-result.html">Scan</a>
 
             <span class="mx-2 h-6 w-px bg-slate-200"></span>
 
-            <a data-nav="dashboard" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="dashboard.html">Dashboard</a>
-            <a data-nav="team" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="team.html">Team</a>
-            <a data-nav="qr-create" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="qr-create.html">Create qr</a>
-            <a data-nav="qr-list" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="qr-list.html">Qr list</a>
-            <a data-nav="scan-result" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="scan-result.html">Scan</a>
+            <span class="ty-caption text-slate-500" data-role-label>Guest</span>
+
+            <button class="px-3 py-2 rounded-xl border border-slate-200 ty-body-2 bg-white hover:bg-slate-50"
+                    data-demo-logout data-auth-only>
+                Log Out
+            </button>
+
+            Demo
+            <div class="ml-2 flex items-center gap-2">
+                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
+                        data-demo-guest>
+                    Demo: Guest
+                </button>
+                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
+                        data-demo-owner>
+                    Demo: Owner
+                </button>
+                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
+                        data-demo-mechanic>
+                    Demo: Mechanic
+                </button>
+            </div>
         </nav>
 
-        <a class="md:hidden px-3 py-2 rounded-xl border border-slate-200 ty-body-2 bg-white hover:bg-slate-50" href="dashboard.html">
+        <a class="md:hidden px-3 py-2 rounded-xl border border-slate-200 ty-body-2 bg-white hover:bg-slate-50"
+           href="dashboard.html">
             Menu
         </a>
     </div>
