@@ -125,6 +125,11 @@ function applyAuthUi() {
         el.style.display = !isLoggedIn ? "" : "none";
     });
 
+    document.querySelectorAll("[data-admin-only]").forEach(el => {
+        el.style.display = (role === "Admin") ? "" : "none";
+    });
+
+
     // User label (optional)
     const roleLabel = document.querySelector("[data-role-label]");
     if (roleLabel) roleLabel.textContent = isLoggedIn ? `${user.name} (${role})` : "Guest";
