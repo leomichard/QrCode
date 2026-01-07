@@ -1,15 +1,11 @@
-/public
-  index.php
+/docs
+  index.html
+  login.html
+  register.html
+  dashboard.html
+  team.html
+  qr-create.html
+  qr-list.html
+  scan-result.html
   /assets
     app.css
-/app
-  /Views
-    layout.php
-    home.php
-    auth_login.php
-    auth_register.php
-    dashboard.php
-    team.php
-    qr_create.php
-    qr_list.php
-    scan_result.php

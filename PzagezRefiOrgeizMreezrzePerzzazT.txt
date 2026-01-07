@@ -1,0 +1,153 @@
+Le site ne s'affiche pas correctement, il affiche Qr code sur github pages et il s'affiche cependant sur le localhost, peux tu m'aider a faire en sorte a ce qu'il fonctionne sur Github pages.
+ je vais en suite te demander de suivre toutes ces recommandations de style
+  The typographies have been designed for digital use.
+
+
+
+                                 The Nunito typography is mainly used for section titles,
+                                 and for some key values or figures when they are visual.
+
+
+                                 Roboto typography is used throughout the interface,
+                                 except in the cases mentioned above.
+
+
+                                 The use of titles in capital letters is to be avoided: write
+                                 titles in lower case.
+
+
+                                 These two typrographies can be downloaded online via
+                                 Google fonts:
+
+
+                                 https://fonts.google.com/specimen/Nunito
+
+                                 https://fonts.google.com/specimen/Roboto
+                                 Keyfigure Nunito, SemiBold 20px minimum
+                                 Headline Nunito, SemiBold 20px
+                                 Nunito Roboto
+                                 Subtitle 1 Roboto, Medium 16px
+                                 Subtitle 2 Roboto, Medium 14px
+                                 Button Roboto, Medium 14px
+                                 Body 1 Roboto, Regular 16px
+                                 Body 2 Roboto, Regular 14px
+                                 Caption Roboto, Regular 12px
+                                 OVERLINE Roboto, Regular 10px
+
+
+
+
+                                 Red #ED0000 and dark grey #374649 are used mainly
+                                 for text. Red is reserved for links and action elements in
+                                 the application.
+
+
+                                 Dark grey is mainly reserved for all text in the interface.
+
+                                 Both colors are accessible at the AA level when used on
+                                 white or light grey and grey backgrounds.
+
+
+                                 White can only be used on text when contrast allows. It is
+                                 otherwise reserved for the background.
+
+
+                                 The W3C-WCAG accessibility standard recommends two
+                                 contrast ratios:
+
+
+                                 3:1 = for texts or flat areas whose surface is large enough
+                                 to be easily readable.
+
+                                 4.5:1 = for text or solid areas whose surface area is
+                                 smaller and whose legibility becomes more difficult.
+                                 Main colors Secondary colors
+                                 These two colors are used mainly for interface elements.
+                                 Red
+                                 #ED0000
+                                 rgb (237,0,0)
+                                 Gray
+                                 #374649
+                                 rgb (55,70,73)
+                                 Gray Background
+                                 #F7F9FA
+                                 rgb (247,249,250)
+                                 Light Gray
+                                 #B7CBD3
+                                 rgb (183,203,211)
+                                 These three colors are used mainly for typography.
+                                 White
+                                 #FFFFFF
+                                 rgb (255,255,255)
+
+
+
+
+                                 Solid colors are only used as cell backgrounds with text
+                                 or symbols in the foreground.
+
+
+
+                                 Their use should remain marginal and is intended to bring
+                                 rhythm and variation to the whole interface. They are also
+                                 used to emphasise certain areas of the screen by contrast,
+                                 following the principles of information hierarchy.
+
+
+                                 Grey and white solids should be used as a rule.
+
+
+
+                                  Warning, the red links (ED0000) are not accessible on
+                                 a background non-white.
+
+
+                                 By default, all flat colors can be used, with the aim of
+                                 promoting the brand's new multicolor and multi-energy
+                                 positioning.
+                                 Solid colors to be used as cell backgrounds only
+                                 Used as cell backgrounds with text or symbols in the foreground.
+
+                                 All flat colors can be used.
+                                 White text
+
+                                 only
+                                 White text
+
+                                 only
+                                 Text color
+
+                                 #374649
+                                 Text color
+
+                                 #374649
+                                 Blue Light
+                                 #80CDFF
+                                 rgb (128,205,255)
+                                 Blue
+                                 #285AFF
+                                 rgb (40,90,255)
+                                 Turquoise
+                                 #92EAEA
+                                 rgb (146,234,234)
+                                 Green Light
+                                 #72EAC5
+                                 rgb (114,234,197)
+                                 Neon Green
+                                 #BCF453
+                                 rgb (188,244,83)
+                                 Yellow
+                                 #FFE74F
+                                 rgb (255,231,79)
+                                 Orange Red
+                                 #DB3900
+                                 rgb (259,57,0)
+                                 Gray Background
+                                 #F7F9FA
+                                 rgb (247,249,250)
+                                 White
+                                 #FFFFFF
+                                 rgb (255,255,255)
+                                 Light Gray
+                                 #B7CBD3
+                                 rgb (183,203,211)
