@@ -6,14 +6,16 @@
     <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
     <title>Quartz QR Scan</title>
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/supabase-client.js"></script>
-    <script src="assets/app-api.js"></script>
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Supabase Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <link rel="stylesheet" href="assets/app.css" />
 </head>
 
@@ -28,7 +30,6 @@
         </div>
         <div class="flex gap-3" data-auth-only>
             <input class="rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="Search QR Id...">
-            <a class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2" href="qr-create.html" data-owner-only>Create</a>
         </div>
     </div>
 
@@ -91,6 +92,8 @@
 </main>
 
 <div id="site-footer"></div>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
 </body>
 </html>
