@@ -1,99 +1,90 @@
 :root{
-    --te-red:#ED0000;
-    --te-gray:#374649;
-    --te-bg:#F7F9FA;
-    --te-light:#B7CBD3;
+    --red:#ED0000;
+    --gray:#374649;
+    --bg:#F7F9FA;
+    --light:#B7CBD3;
     --white:#FFFFFF;
 }
 
-html,body{
-    background: var(--te-bg);
-    color: var(--te-gray);
-}
-
-/* Typographies (guide) */
-.ty-headline{
-    font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-}
-
-.ty-keyfigure{
-    font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.2;
-}
-
-.ty-subtitle-1{
+/* Typography */
+body{
     font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.4;
+    color: var(--gray);
+    background: var(--bg);
 }
 
-.ty-subtitle-2{
-    font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.4;
-}
+.ty-keyfigure{ font-family:"Nunito", sans-serif; font-weight:600; font-size:20px; }
+.ty-headline{ font-family:"Nunito", sans-serif; font-weight:600; font-size:20px; }
+.ty-subtitle-1{ font-weight:500; font-size:16px; }
+.ty-subtitle-2{ font-weight:500; font-size:14px; }
+.ty-button{ font-weight:500; font-size:14px; }
+.ty-body-1{ font-weight:400; font-size:16px; }
+.ty-body-2{ font-weight:400; font-size:14px; }
+.ty-caption{ font-weight:400; font-size:12px; }
+.ty-overline{ font-weight:400; font-size:10px; letter-spacing:.06em; text-transform:uppercase; }
 
-.ty-body-1{
-    font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.ty-body-2{
-    font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.ty-caption{
-    font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-.ty-overline{
-    font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-/* Liens : rouge réservé aux actions/links, sur fond blanc (attention accessibilité) */
-.a-red{
-    color: var(--te-red);
-    font-weight: 500;
-}
-.a-red:hover{ text-decoration: underline; }
-
-/* Boutons */
-.btn-primary{
-    background: var(--te-red);
-    color: #fff;
-}
-.btn-primary:hover{ filter: brightness(0.95); }
-
-.btn-ghost{
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    color: var(--te-gray);
-}
-.btn-ghost:hover{ background:#f3f4f6; }
-
-/* Petites cartes */
+/* Components */
 .card{
-    background:#fff;
-    border:1px solid #e5e7eb;
+    background: var(--white);
+    border: 1px solid rgba(183,203,211,.55);
     border-radius: 16px;
+    box-shadow: 0 1px 10px rgba(0,0,0,.04);
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    padding: .75rem 1rem;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.btn-primary{
+    background: var(--red);
+    color: var(--white);
+}
+
+.btn-outline{
+    background: var(--white);
+    color: var(--gray);
+    border-color: rgba(183,203,211,.85);
+}
+
+.link{
+    color: var(--red);
+    text-decoration:none;
+}
+.link:hover{ text-decoration:underline; }
+
+.input{
+    width:100%;
+    background: var(--white);
+    border: 1px solid rgba(183,203,211,.85);
+    border-radius: 14px;
+    padding: .75rem 1rem;
+    outline:none;
+}
+.input:focus{
+    border-color: rgba(237,0,0,.55);
+    box-shadow: 0 0 0 4px rgba(237,0,0,.10);
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    border: 1px solid rgba(183,203,211,.85);
+    background: var(--white);
+    color: var(--gray);
+}
+
+.badge-solid{
+    background: var(--gray);
+    color: var(--white);
+    border-color: var(--gray);
 }

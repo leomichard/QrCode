@@ -3,97 +3,93 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
-    <title>Quartz QR Scan</title>
+    <title>Qr List</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Supabase Core -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <link rel="stylesheet" href="assets/app.css" />
 </head>
 
-<body data-page="qr-list" class="min-h-screen">
+<body>
 <div id="site-header"></div>
 
-<main class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-            <h1 class="ty-headline">QR List</h1>
-            <p class="ty-body-2 mt-2 text-slate-600">Active / Used / Expired.</p>
-        </div>
-        <div class="flex gap-3" data-auth-only>
-            <input class="rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="Search QR Id...">
-        </div>
-    </div>
-
-    <section class="mt-6 card overflow-hidden" data-auth-only>
-        <div class="p-5 border-b border-slate-200">
-            <div class="ty-subtitle-1">Last Entries</div>
-            <div class="ty-caption text-slate-500 mt-1">Workshop Quartz Garage</div>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-left">
-                <thead class="bg-slate-50">
-                <tr>
-                    <th class="p-4 ty-caption text-slate-500">QR Id</th>
-                    <th class="p-4 ty-caption text-slate-500">Status</th>
-                    <th class="p-4 ty-caption text-slate-500">Created</th>
-                    <th class="p-4 ty-caption text-slate-500">Used By</th>
-                    <th class="p-4 ty-caption text-slate-500">Expires</th>
-                    <th class="p-4 ty-caption text-slate-500 text-right">Actions</th>
-                </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-200 bg-white">
-                <tr>
-                    <td class="p-4 ty-body-2 font-medium">#15021</td>
-                    <td class="p-4">
-                        <span class="ty-caption px-3 py-1 rounded-full border" style="background:#fff;border-color:#B7CBD3;color:#374649;">Active</span>
-                    </td>
-                    <td class="p-4 ty-body-2 text-slate-600">2026-01-07 10:22</td>
-                    <td class="p-4 ty-body-2 text-slate-600">—</td>
-                    <td class="p-4 ty-body-2 text-slate-600">2026-01-14 10:22</td>
-                    <td class="p-4 text-right">
-                        <button class="btn-ghost px-4 py-2 rounded-xl ty-subtitle-2">View</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="p-4 ty-body-2 font-medium">#15020</td>
-                    <td class="p-4">
-                        <span class="ty-caption px-3 py-1 rounded-full" style="background:#374649;color:#fff;">Used</span>
-                    </td>
-                    <td class="p-4 ty-body-2 text-slate-600">2026-01-07 09:12</td>
-                    <td class="p-4 ty-body-2 text-slate-600">mec1@garage.com</td>
-                    <td class="p-4 ty-body-2 text-slate-600">2026-01-14 09:12</td>
-                    <td class="p-4 text-right">
-                        <button class="btn-ghost px-4 py-2 rounded-xl ty-subtitle-2">View</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
+        <h1 class="ty-headline">Workshop Qr Scans</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            Owners Can Only See Scans From Their Workshop.
+        </p>
     </section>
 
-    <section class="mt-6 card p-6" data-guest-only>
-        <h2 class="ty-subtitle-1">Sign In Required</h2>
-        <p class="ty-body-2 mt-2 text-slate-600">Sign In To View Your Workshop Qr History.</p>
-        <div class="mt-4">
-            <a class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2" href="login.html">Sign In</a>
+    <section class="card" style="padding:0;overflow:hidden;margin-top:14px;">
+        <div style="padding:16px;border-bottom:1px solid rgba(183,203,211,.55);">
+            <div class="ty-subtitle-1">Recent Scans</div>
+            <div class="ty-caption" style="color:#7A8C92;margin-top:2px;">Latest 50 Scans</div>
+        </div>
+
+        <div style="overflow-x:auto;background:#fff;">
+            <table style="min-width:100%;border-collapse:collapse;text-align:left;">
+                <thead style="background:#F7F9FA;">
+                <tr>
+                    <th style="padding:12px;" class="ty-caption">Mechanic</th>
+                    <th style="padding:12px;" class="ty-caption">Points</th>
+                    <th style="padding:12px;" class="ty-caption">Scanned At</th>
+                </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+            </table>
         </div>
     </section>
 </main>
 
 <div id="site-footer"></div>
+
+<script src="assets/app-state.js"></script>
 <script src="assets/supabase-client.js"></script>
+<script src="assets/auth.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
+
+<script>
+    (async () => {
+        await refreshSession();
+        const profile = await getMyProfile();
+
+        if (!window.appState.session) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (profile?.role !== "Owner" && profile?.role !== "Admin") {
+            alert("Access Restricted.");
+            window.location.href = "dashboard.html";
+            return;
+        }
+
+        // Owner can read only their workshop scans via RLS (v_shop_by_mechanic etc.)
+        // Here we query qr_scans filtered by workshop_id using current user workshop
+        const { data, error } = await supabaseClient
+            .from("qr_scans")
+            .select("points_earned, scanned_at, profiles:scanned_by(full_name)")
+            .order("scanned_at", { ascending: false })
+            .limit(50);
+
+        if (error) {
+            alert(error.message || "Cannot Load Scans.");
+            return;
+        }
+
+        document.getElementById("rows").innerHTML = (data || []).map(r => `
+        <tr style="border-top:1px solid rgba(183,203,211,.55);">
+          <td style="padding:12px;" class="ty-body-2"><strong>${r.profiles?.full_name || "—"}</strong></td>
+          <td style="padding:12px;" class="ty-body-2">${r.points_earned}</td>
+          <td style="padding:12px;" class="ty-body-2">${new Date(r.scanned_at).toLocaleString()}</td>
+        </tr>
+      `).join("");
+    })();
+</script>
 </body>
 </html>

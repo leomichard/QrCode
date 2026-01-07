@@ -1,3 +1,13 @@
+
+// assets/app-state.js
+
+window.appState = {
+    session: null,
+    profile: null
+};
+
+
+/*
 const AppState = (() => {
     const KEY = "quartz_app_state_v1";
 
@@ -113,3 +123,4 @@ const AppState = (() => {
         computePointsSummary,
     };
 })();
+*/

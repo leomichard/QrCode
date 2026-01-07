@@ -1,97 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
-    <title>Quartz Qr Scan</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quartz QR</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Supabase Core -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <link rel="stylesheet" href="assets/app.css" />
 </head>
 
-<body data-page="home" class="min-h-screen">
+<body>
 <div id="site-header"></div>
 
-<main class="max-w-6xl mx-auto px-4 py-10">
-    <div class="grid lg:grid-cols-2 gap-8 items-start">
-        <section class="card p-6">
-            <div class="ty-overline text-slate-500">Quartz</div>
-            <h1 class="ty-headline mt-2">Secure Single-Use Scan</h1>
-            <p class="ty-body-1 mt-3 text-slate-600">
-                Workshop Platform: One Owner Account, Multiple Mechanics, And One-Time QR Validation.
-            </p>
+<main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
+        <h1 class="ty-headline">Quartz Qr Scan</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            Secure One-Time Qr Codes With Points And Promotions.
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+            <a class="btn btn-primary ty-button" href="login.html">Login</a>
+            <a class="btn btn-outline ty-button" href="register.html">Register</a>
+        </div>
+    </section>
 
-            <div class="mt-6 flex flex-wrap gap-3">
-                <a href="register.html" class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2">Create A Workshop</a>
-                <a href="login.html" class="btn-ghost px-5 py-3 rounded-xl ty-subtitle-2">Sign In</a>
-            </div>
-
-            <div class="mt-6 grid sm:grid-cols-3 gap-3">
-                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
-                    <div class="ty-subtitle-2">One-Time</div>
-                    <div class="ty-caption text-slate-500 mt-1">Becomes Obsolete After Scanning</div>
-                </div>
-                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
-                    <div class="ty-subtitle-2">Roles</div>
-                    <div class="ty-caption text-slate-500 mt-1">Owner + Mechanics</div>
-                </div>
-                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
-                    <div class="ty-subtitle-2">Promotions</div>
-                    <div class="ty-caption text-slate-500 mt-1">Visible To Everyone</div>
-                </div>
-            </div>
-        </section>
-
-        <aside class="card p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <div class="ty-overline text-slate-500">Preview</div>
-                    <div class="ty-subtitle-1 mt-1">Points And History</div>
-                </div>
-                <span class="px-3 py-1 rounded-full border ty-caption"
-                      style="background:#fff; border-color:#B7CBD3; color:#374649;">
-            Active
-          </span>
-            </div>
-
-            <div class="mt-6 p-5 rounded-2xl border border-slate-200 bg-slate-50">
-                <div class="ty-subtitle-1">Earn Points With Each Scan</div>
-                <div class="ty-caption text-slate-500 mt-1">Owner Sees Shop Stats • Mechanic Sees Personal Stats</div>
-                <div class="mt-4 flex gap-3">
-                    <a href="dashboard.html" class="btn-primary px-4 py-3 rounded-xl ty-subtitle-2">Open Dashboard</a>
-                    <a href="scan-result.html" class="btn-ghost px-4 py-3 rounded-xl ty-subtitle-2">Try Scan</a>
-                </div>
-            </div>
-        </aside>
-    </div>
-
-    <!-- Promotions Public Section -->
-    <section class="mt-10">
-        <div class="flex items-end justify-between gap-4">
-            <div>
-                <h2 class="ty-headline">Promotions Catalog</h2>
-                <p class="ty-body-2 mt-2 text-slate-600">These Promotions Are Visible Even If You Are Not Signed In.</p>
-            </div>
+    <section style="margin-top:18px;">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <h2 class="ty-headline">Promotions Catalog</h2>
+            <p class="ty-caption" style="color:#7A8C92;">Visible For Everyone, Even When Not Signed In.</p>
         </div>
 
-        <div class="mt-6 grid md:grid-cols-3 gap-6" data-promotions-grid>
-            <!-- JS Injected -->
-        </div>
+        <div data-promotions-grid style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px;"></div>
     </section>
 </main>
 
 <div id="site-footer"></div>
+
+<script src="assets/app-state.js"></script>
 <script src="assets/supabase-client.js"></script>
+<script src="assets/auth.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
+
+<script>
+    (async () => {
+        // Promotions are public. For unlock display, use shop points if logged in.
+        const promos = await listPublicPromotions();
+        const shop = await getShopTotal(); // returns null if not signed in
+        const shopPoints = shop?.shop_points ?? 0;
+        renderPromotions("[data-promotions-grid]", promos, shopPoints);
+    })();
+</script>
 </body>
 </html>

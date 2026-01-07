@@ -1,69 +1,26 @@
-<header class="border-b border-slate-200" style="background:#fff;">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-3">
-            <img src="assets/imgs/logototal.svg" alt="Logo TotalEnergies"
-                 class="h-10 w-10 rounded-xl grid place-items-center text-white font-semibold"></img>
-            <div class="leading-tight">
-                <div class="ty-subtitle-1" style="color:#374649;">Quartz</div>
-                <div class="ty-caption text-slate-500 -mt-0.5">TotalEnergies</div>
-            </div>
+<header class="card" style="margin:16px auto; max-width:1100px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;">
+        <a href="index.html" class="ty-subtitle-1" style="text-decoration:none;color:#374649;">
+            Quartz QR
         </a>
 
-        <nav class="hidden md:flex items-center gap-2">
-            <a data-nav="home" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="index.html">Home</a>
+        <nav style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <a class="btn btn-outline ty-button" href="index.html">Home</a>
 
-            <a data-nav="login" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="login.html"
-               data-guest-only>Sign In</a>
-            <a data-nav="register" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="register.html"
-               data-guest-only>Register</a>
+            <a class="btn btn-outline ty-button" href="dashboard.html" data-auth-only style="display:none;">Dashboard</a>
+            <a class="btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
+            <a class="btn btn-outline ty-button" href="qr-list.html" data-auth-only style="display:none;">Qr List</a>
 
-            <a data-nav="dashboard" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="dashboard.html"
-               data-auth-only>Dashboard</a>
-            <a data-nav="team" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="team.html"
-               data-owner-only>Team</a>
-            <a data-nav="qr-list" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="qr-list.html"
-               data-auth-only>QR List</a>
-            <a data-nav="scan-result" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" href="scan-result.html">Scan</a>
+            <a class="btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
 
-            <a
-                    href="admin.html"
-                    class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2"
-                    data-owner-only
-                    data-admin-only
-            >
-                Admin
-            </a>
+            <a class="btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
+            <a class="btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
 
-
-            <span class="mx-2 h-6 w-px bg-slate-200"></span>
-
-            <span class="ty-caption text-slate-500" data-role-label>Guest</span>
-
-            <button class="px-3 py-2 rounded-xl border border-slate-200 ty-body-2 bg-white hover:bg-slate-50"
-                    data-demo-logout data-auth-only>
-                Log Out
-            </button>
-
-            Demo
-            <div class="ml-2 flex items-center gap-2">
-                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
-                        data-demo-guest>
-                    Demo: Guest
-                </button>
-                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
-                        data-demo-owner>
-                    Demo: Owner
-                </button>
-                <button class="px-3 py-2 rounded-xl border border-slate-200 ty-caption bg-white hover:bg-slate-50"
-                        data-demo-mechanic>
-                    Demo: Mechanic
-                </button>
-            </div>
+            <button class="btn btn-primary ty-button" data-logout data-auth-only style="display:none;">Logout</button>
         </nav>
+    </div>
 
-        <a class="md:hidden px-3 py-2 rounded-xl border border-slate-200 ty-body-2 bg-white hover:bg-slate-50"
-           href="dashboard.html">
-            Menu
-        </a>
+    <div style="padding:0 16px 14px;">
+        <span class="ty-caption" style="color:#7A8C92;" data-whoami>Not Signed In</span>
     </div>
 </header>

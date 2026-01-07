@@ -3,174 +3,126 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Admin Dashboard • Quartz</title>
+    <title>Admin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <link rel="stylesheet" href="assets/app.css" />
 </head>
 
-<body data-page="admin" class="min-h-screen">
+<body>
 <div id="site-header"></div>
 
-<main class="max-w-7xl mx-auto px-4 py-10">
-    <h1 class="ty-headline">Admin Dashboard</h1>
-    <p class="ty-body-2 mt-2 text-slate-600">
-        Global Statistics Across All Workshops And Users.
-    </p>
-
-    <!-- Access Control -->
-    <section id="admin-access-denied" class="card p-6 mt-6 hidden">
-        <h2 class="ty-subtitle-1">Access Restricted</h2>
-        <p class="ty-body-2 mt-2 text-slate-600">
-            You Must Be An Admin To View This Page.
-        </p>
+<main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
+        <h1 class="ty-headline">Admin Dashboard</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">Global Statistics And Management.</p>
     </section>
 
-    <!-- Admin Content -->
-    <section id="admin-content" class="hidden">
+    <section id="denied" class="card" style="padding:22px;margin-top:14px;display:none;">
+        <h2 class="ty-headline">Access Restricted</h2>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">You Must Be An Admin To View This Page.</p>
+    </section>
 
-        <!-- Global Stats -->
-        <section class="mt-6 grid md:grid-cols-4 gap-6" id="admin-global-stats">
-            <!-- Injected By JS -->
+    <section id="content" style="display:none;margin-top:14px;">
+        <div id="overview" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;"></div>
+
+        <section class="card" style="padding:22px;margin-top:14px;">
+            <h2 class="ty-headline">Create Global Promotion</h2>
+            <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+                Global Promotions Have No Workshop Id And Are Visible To Everyone.
+            </p>
+
+            <form id="globalPromoForm" style="margin-top:14px;display:grid;gap:10px;">
+                <input class="input ty-body-2" name="title" placeholder="Title" />
+                <input class="input ty-body-2" name="imageUrl" placeholder="Image Url" />
+                <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)" />
+                <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
+                <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
+            </form>
         </section>
-
-        <!-- Shops Leaderboard -->
-        <section class="mt-10 card overflow-hidden">
-            <div class="p-5 border-b border-slate-200">
-                <h2 class="ty-subtitle-1">Workshops Leaderboard</h2>
-                <p class="ty-caption text-slate-500 mt-1">
-                    Ranked By Total Points Earned.
-                </p>
-            </div>
-
-            <div class="overflow-x-auto bg-white">
-                <table class="min-w-full text-left">
-                    <thead class="bg-slate-50">
-                    <tr>
-                        <th class="p-4 ty-caption text-slate-500">Workshop</th>
-                        <th class="p-4 ty-caption text-slate-500">Total Scans</th>
-                        <th class="p-4 ty-caption text-slate-500">Total Points</th>
-                    </tr>
-                    </thead>
-                    <tbody id="admin-shops-table" class="divide-y divide-slate-200">
-                    <!-- Injected -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Mechanics Leaderboard -->
-        <section class="mt-10 card overflow-hidden">
-            <div class="p-5 border-b border-slate-200">
-                <h2 class="ty-subtitle-1">Mechanics Leaderboard</h2>
-                <p class="ty-caption text-slate-500 mt-1">
-                    Ranked By Points Earned.
-                </p>
-            </div>
-
-            <div class="overflow-x-auto bg-white">
-                <table class="min-w-full text-left">
-                    <thead class="bg-slate-50">
-                    <tr>
-                        <th class="p-4 ty-caption text-slate-500">Name</th>
-                        <th class="p-4 ty-caption text-slate-500">Workshop</th>
-                        <th class="p-4 ty-caption text-slate-500">Total Scans</th>
-                        <th class="p-4 ty-caption text-slate-500">Total Points</th>
-                    </tr>
-                    </thead>
-                    <tbody id="admin-mechanics-table" class="divide-y divide-slate-200">
-                    <!-- Injected -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
     </section>
 </main>
 
 <div id="site-footer"></div>
 
-<!-- App Scripts -->
+<script src="assets/app-state.js"></script>
 <script src="assets/supabase-client.js"></script>
+<script src="assets/auth.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
 
 <script>
     (async () => {
-        const session = await supabaseClient.auth.getSession();
+        await refreshSession();
         const profile = await getMyProfile();
 
-        const denied = document.getElementById("admin-access-denied");
-        const content = document.getElementById("admin-content");
-
-        if (!session.data.session || !profile || profile.role !== "Admin") {
-            denied.classList.remove("hidden");
+        if (!window.appState.session || profile?.role !== "Admin") {
+            document.getElementById("denied").style.display = "";
             return;
         }
 
-        content.classList.remove("hidden");
+        document.getElementById("content").style.display = "";
 
-        // Load global overview
-        const { data: overview } = await supabaseClient
-            .from("v_admin_overview")
-            .select("*")
-            .single();
+        // Overview via view v_admin_overview (you created it earlier)
+        const { data: overview, error } = await supabaseClient.from("v_admin_overview").select("*").single();
+        if (error) {
+            alert("Admin Overview View Missing Or Not Accessible.");
+            return;
+        }
 
-        document.getElementById("admin-global-stats").innerHTML = `
-        <div class="card p-6">
-          <div class="ty-caption text-slate-500">Total Workshops</div>
-          <div class="ty-keyfigure mt-2">${overview.total_workshops}</div>
+        document.getElementById("overview").innerHTML = `
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Workshops</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_workshops}</div>
         </div>
-        <div class="card p-6">
-          <div class="ty-caption text-slate-500">Total Users</div>
-          <div class="ty-keyfigure mt-2">${overview.total_users}</div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Users</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_users}</div>
         </div>
-        <div class="card p-6">
-          <div class="ty-caption text-slate-500">Total Scans</div>
-          <div class="ty-keyfigure mt-2">${overview.total_scans}</div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Scans</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_scans}</div>
         </div>
-        <div class="card p-6">
-          <div class="ty-caption text-slate-500">Total Points</div>
-          <div class="ty-keyfigure mt-2">${overview.total_points}</div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Points</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_points}</div>
         </div>
       `;
 
-        // Shops leaderboard
-        const { data: shops } = await supabaseClient
-            .from("v_shop_leaderboard")
-            .select("*");
+        // Global promo create
+        document.getElementById("globalPromoForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const f = e.target;
 
-        document.getElementById("admin-shops-table").innerHTML =
-            shops.map(s => `
-          <tr>
-            <td class="p-4 ty-body-2 font-medium">${s.workshop_name}</td>
-            <td class="p-4 ty-body-2 text-slate-600">${s.scans}</td>
-            <td class="p-4 ty-body-2 text-slate-600">${s.points}</td>
-          </tr>
-        `).join("");
+            const title = f.title.value.trim();
+            const imageUrl = f.imageUrl.value.trim();
+            const requiredPoints = f.requiredPoints.value.trim();
+            const description = f.description.value.trim();
 
-        // Mechanics leaderboard
-        const { data: mechanics } = await supabaseClient
-            .from("v_mechanic_leaderboard")
-            .select("*");
+            if (!title || !imageUrl || !description) {
+                alert("Please Fill In Title, Image Url, And Description.");
+                return;
+            }
 
-        document.getElementById("admin-mechanics-table").innerHTML =
-            mechanics.map(m => `
-          <tr>
-            <td class="p-4 ty-body-2 font-medium">${m.full_name}</td>
-            <td class="p-4 ty-body-2 text-slate-600">${m.workshop_name || "-"}</td>
-            <td class="p-4 ty-body-2 text-slate-600">${m.scans}</td>
-            <td class="p-4 ty-body-2 text-slate-600">${m.points}</td>
-          </tr>
-        `).join("");
+            try {
+                await createPromotion({
+                    title,
+                    description,
+                    imageUrl,
+                    requiredPoints,
+                    workshopId: null
+                });
+
+                alert("Global Promotion Published.");
+                f.reset();
+            } catch (err) {
+                alert(err.message || "Error Publishing Promotion.");
+            }
+        });
     })();
 </script>
 </body>

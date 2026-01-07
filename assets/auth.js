@@ -1,31 +1,29 @@
 // assets/auth.js
 
-async function signUpWithEmailPassword(fullName, email, password) {
+async function signUp(fullName, email, password) {
     const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
-        options: {
-            data: { full_name: fullName }
-        }
+        options: { data: { full_name: fullName } }
     });
     if (error) throw error;
     return data;
 }
 
-async function signInWithEmailPassword(email, password) {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+async function signIn(email, password) {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) throw error;
     return data;
 }
 
 async function signOut() {
-    await supabaseClient.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
 }
 
-async function getSession() {
-    const { data } = await supabaseClient.auth.getSession();
-    return data.session;
+async function refreshSession() {
+    const { data, error } = await supabaseClient.auth.getSession();
+    if (error) throw error;
+    window.appState.session = data.session || null;
+    return window.appState.session;
 }

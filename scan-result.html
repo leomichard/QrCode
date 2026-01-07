@@ -1,91 +1,95 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
-    <title>Quartz Qr Scan</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scan Result</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Supabase Core -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <link rel="stylesheet" href="assets/app.css"/>
+    <link rel="stylesheet" href="assets/app.css" />
 </head>
 
-<body data-page="scan-result" class="min-h-screen">
+<body>
 <div id="site-header"></div>
 
-<main class="max-w-6xl mx-auto px-4 py-10">
-    <div class="max-w-2xl mx-auto card p-6">
+<main style="max-width:720px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
         <h1 class="ty-headline">Scan Result</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            This Page Consumes A One-Time Qr Code.
+        </p>
 
-        <div class="mt-5 p-4 rounded-2xl border border-slate-200 bg-slate-50">
-            <div class="ty-subtitle-1">✅ QR Validated</div>
-            <p class="ty-body-2 mt-2 text-slate-600">This Qr Is Now Obsolete (One-Time).</p>
-
-            <div class="mt-4 grid sm:grid-cols-2 gap-3 ty-body-2 text-slate-600">
-                <div><span class="text-slate-500">QR Id:</span> #15021</div>
-                <div><span class="text-slate-500">Status:</span> Used</div>
-                <div><span class="text-slate-500">Workshop:</span> Quartz Garage</div>
-                <div><span class="text-slate-500">Validated By:</span> mec1@garage.com</div>
-            </div>
-
-            <div class="mt-5 flex flex-wrap gap-3">
-                <a class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2" href="dashboard.html">Back To Dashboard</a>
-                <a class="btn-ghost px-5 py-3 rounded-xl ty-subtitle-2" href="qr-list.html">View QR List</a>
-                <button class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2" type="button" data-demo-award>
-                    Award Points (Demo)
-                </button>
-            </div>
-
-            <p class="ty-caption text-slate-500 mt-3">
-                Demo: Clicking "Award Points" Updates LocalStorage Stats.
-            </p>
+        <div id="result" class="card" style="padding:16px;margin-top:14px;background:#fff;">
+            <div class="ty-body-2" style="color:#55666A;">Waiting For Token...</div>
         </div>
 
-        <div class="mt-5 p-4 rounded-2xl border border-slate-200 bg-white">
-            <div class="ty-subtitle-1">⚠️ Already Used / Expired</div>
-            <p class="ty-body-2 mt-2 text-slate-600">Show This State If The Qr Is Scanned Again.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+            <a class="btn btn-outline ty-button" href="dashboard.html">Go To Dashboard</a>
         </div>
-    </div>
+    </section>
 </main>
 
 <div id="site-footer"></div>
+
+<script src="assets/app-state.js"></script>
 <script src="assets/supabase-client.js"></script>
+<script src="assets/auth.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
 
 <script>
     (async () => {
+        await refreshSession();
+        if (!window.appState.session) {
+            // Must be logged in to consume (your SQL requires auth.uid)
+            window.location.href = "login.html";
+            return;
+        }
+
         const url = new URL(window.location.href);
         const rawToken = url.searchParams.get("token");
+        const box = document.getElementById("result");
 
-        if (!rawToken) return;
+        if (!rawToken) {
+            box.innerHTML = `<div class="ty-body-2" style="color:#55666A;">No Token Provided.</div>`;
+            return;
+        }
 
         try {
-            const result = await consumeQrToken(rawToken);
+            const res = await consumeQrToken(rawToken);
 
-            if (!result.ok) {
-                alert("Invalid, Used, Or Expired QR Code.");
+            if (!res.ok) {
+                box.innerHTML = `
+            <div class="ty-subtitle-1">Qr Not Valid</div>
+            <div class="ty-body-2" style="margin-top:6px;color:#55666A;">
+              Invalid Or Already Used Qr Code.
+            </div>
+          `;
                 return;
             }
 
-            alert(`QR Consumed. Points Earned: ${result.points_earned}`);
-            // Optionnel: rediriger vers dashboard
-            // window.location.href = "dashboard.html";
-        } catch (e) {
-            alert("Error Consuming QR Code.");
+            box.innerHTML = `
+          <div class="ty-subtitle-1">Qr Consumed Successfully</div>
+          <div class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            Points Earned: <strong>${res.points_earned}</strong>
+          </div>
+          <div class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            Product: <strong>${res.product_number || "—"}</strong> • <strong>${res.product_name || "—"}</strong>
+          </div>
+        `;
+        } catch (err) {
+            box.innerHTML = `
+          <div class="ty-subtitle-1">Error</div>
+          <div class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            ${err.message || "Scan Failed."}
+          </div>
+        `;
         }
     })();
 </script>
-
-
 </body>
 </html>
