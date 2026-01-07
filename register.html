@@ -103,8 +103,39 @@
 </main>
 
 <div id="site-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase-client.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
+<script>
+    (async () => {
+        const form = document.querySelector("form");
+        if (!form) return;
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const fullName = (document.querySelector('[name="full_name"]')?.value || "").trim();
+            const email = (document.querySelector('[name="email"]')?.value || "").trim();
+            const password = (document.querySelector('[name="password"]')?.value || "").trim();
+
+            if (!fullName || !email || !password) {
+                alert("Please Fill In Full Name, Email, And Password.");
+                return;
+            }
+
+            try {
+                await signUpWithEmailPassword(fullName, email, password);
+
+                // If email confirmation is OFF, user is ready to login immediately
+                alert("Account Created. You Can Sign In Now.");
+                window.location.href = "login.html";
+            } catch (err) {
+                alert(err.message || "Sign Up Failed.");
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>

@@ -60,5 +60,31 @@
 <script src="assets/supabase-client.js"></script>
 <script src="assets/app-api.js"></script>
 <script src="assets/include.js"></script>
+<script>
+    (async () => {
+        const form = document.querySelector("form");
+        if (!form) return;
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = (document.querySelector('[name="email"]')?.value || "").trim();
+            const password = (document.querySelector('[name="password"]')?.value || "").trim();
+
+            if (!email || !password) {
+                alert("Please Fill In Email And Password.");
+                return;
+            }
+
+            try {
+                await signInWithEmailPassword(email, password);
+                window.location.href = "dashboard.html";
+            } catch (err) {
+                alert(err.message || "Login Failed.");
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>
