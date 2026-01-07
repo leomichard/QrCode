@@ -12,7 +12,7 @@ $routes = [
     '/scan-result' => 'scan_result.php',
 ];
 
-$view = $routes[$path] ?? null;
+$view = isset($routes[$path]) ? $routes[$path] : null;
 if (!$view) {
     http_response_code(404);
     echo "404";
