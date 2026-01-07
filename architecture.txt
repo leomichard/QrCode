@@ -7,5 +7,9 @@
   qr-create.html
   qr-list.html
   scan-result.html
+  /partials
+    header.html
+    footer.html
   /assets
     app.css
+    include.js
