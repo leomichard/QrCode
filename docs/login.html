@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>login • quartz</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/app.css" />
+</head>
+
+<body data-page="login" class="min-h-screen">
+<div id="site-header"></div>
+
+<main class="max-w-6xl mx-auto px-4 py-10">
+    <div class="max-w-md mx-auto card p-6">
+        <h1 class="ty-headline">se connecter</h1>
+        <p class="ty-body-2 mt-2 text-slate-600">accès au dashboard et à la gestion des qr codes.</p>
+
+        <form class="mt-6 space-y-4">
+            <div>
+                <label class="ty-subtitle-2">email</label>
+                <input class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="owner@garage.com">
+            </div>
+
+            <div>
+                <label class="ty-subtitle-2">mot de passe</label>
+                <input type="password" class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 bg-white ty-body-2" placeholder="••••••••">
+            </div>
+
+            <button type="button" class="btn-primary w-full rounded-xl px-4 py-3 ty-subtitle-2">
+                login
+            </button>
+
+            <div class="ty-body-2 text-slate-600 text-center">
+                pas de compte ? <a class="a-red" href="register.html">créer un workshop</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/include.js"></script>
+</body>
+</html>

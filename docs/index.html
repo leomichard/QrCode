@@ -1,23 +1,78 @@
-<?php
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>quartz • qr</title>
 
-$routes = [
-    '/' => 'home.php',
-    '/login' => 'auth_login.php',
-    '/register' => 'auth_register.php',
-    '/dashboard' => 'dashboard.php',
-    '/team' => 'team.php',
-    '/qr/create' => 'qr_create.php',
-    '/qr/list' => 'qr_list.php',
-    '/scan-result' => 'scan_result.php',
-];
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-$view = isset($routes[$path]) ? $routes[$path] : null;
-if (!$view) {
-    http_response_code(404);
-    echo "404";
-    exit;
-}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/app.css" />
+</head>
 
-require __DIR__ . '/../app/Views/layout.php';
+<body data-page="home" class="min-h-screen">
+<div id="site-header"></div>
 
+<main class="max-w-6xl mx-auto px-4 py-10">
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <section class="card p-6">
+            <div class="ty-overline text-slate-500">quartz</div>
+            <h1 class="ty-headline mt-2">scan sécurisé à usage unique</h1>
+            <p class="ty-body-1 mt-3 text-slate-600">
+                plateforme atelier : un compte principal (owner) + des mécaniciens, génération et consommation de qr codes one-time.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+                <a href="register.html" class="btn-primary px-5 py-3 rounded-xl ty-subtitle-2">créer un workshop</a>
+                <a href="login.html" class="btn-ghost px-5 py-3 rounded-xl ty-subtitle-2">se connecter</a>
+            </div>
+
+            <div class="mt-6 grid sm:grid-cols-3 gap-3">
+                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <div class="ty-subtitle-2">one-time</div>
+                    <div class="ty-caption text-slate-500 mt-1">devient obsolète après scan</div>
+                </div>
+                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <div class="ty-subtitle-2">rôles</div>
+                    <div class="ty-caption text-slate-500 mt-1">owner + mechanics</div>
+                </div>
+                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <div class="ty-subtitle-2">traçabilité</div>
+                    <div class="ty-caption text-slate-500 mt-1">statuts + historique</div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="card p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="ty-overline text-slate-500">preview</div>
+                    <div class="ty-subtitle-1 mt-1">qr status panel</div>
+                </div>
+                <span class="px-3 py-1 rounded-full border ty-caption" style="background:#fff; border-color:#B7CBD3; color:#374649;">
+            active
+          </span>
+            </div>
+
+            <div class="mt-6 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+                <div class="ty-subtitle-1">qr #15021</div>
+                <div class="ty-caption text-slate-500 mt-1">expires in 7 days</div>
+                <div class="mt-4 flex gap-3">
+                    <a href="qr-list.html" class="btn-ghost px-4 py-3 rounded-xl ty-subtitle-2">voir la liste</a>
+                    <a href="qr-create.html" class="btn-primary px-4 py-3 rounded-xl ty-subtitle-2">générer</a>
+                </div>
+                <p class="ty-caption text-slate-500 mt-4">
+                    lien rouge réservé aux actions sur fond blanc : <a class="a-red" href="register.html">créer un compte</a>
+                </p>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/include.js"></script>
+</body>
+</html>
