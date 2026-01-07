@@ -13,3 +13,13 @@
   /assets
     app.css
     include.js
+
+database password = Totalenergies2000@
+
+anon public key = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZ3FzeXVuc2hrdmVvZm5wY3hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3ODQ2NTEsImV4cCI6MjA4MzM2MDY1MX0.U_p8xJAA4yKZO3P1x32csnlFcRnX1_xuR85mIyTRak4
+project url = https://eagqsyunshkveofnpcxb.supabase.co
+
+the test email 4 the project + line account is linemstotal@gmail.com
+pw = totalenergies2000
+this is the admin account also
+THIS IS FOR TEST PURPOSES ONLY
