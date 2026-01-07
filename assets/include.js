@@ -19,3 +19,37 @@ function setActiveNav() {
     await inject("#site-footer", "partials/footer.html");
     setActiveNav();
 })();
+
+function applyVisibilityRules() {
+    const state = AppState.get();
+    const { isLoggedIn, role } = state.session;
+
+    // Elements That Require Login
+    document.querySelectorAll("[data-auth='required']").forEach(el => {
+        el.style.display = isLoggedIn ? "" : "none";
+    });
+
+    // Elements Visible Only When Logged Out
+    document.querySelectorAll("[data-auth='guest']").forEach(el => {
+        el.style.display = isLoggedIn ? "none" : "";
+    });
+
+    // Elements Visible Only To A Specific Role
+    document.querySelectorAll("[data-role]").forEach(el => {
+        const allowed = el.getAttribute("data-role");
+        el.style.display = (isLoggedIn && role === allowed) ? "" : "none";
+    });
+
+    // Optional: Show Current Role In Header (If You Add A Placeholder)
+    const roleEl = document.querySelector("[data-session-role]");
+    if (roleEl) roleEl.textContent = role === "owner" ? "Owner" : "Mechanic";
+}
+
+(async () => {
+    await inject("#site-header", "partials/header.html");
+    await inject("#site-footer", "partials/footer.html");
+    setActiveNav();
+
+    // Apply Role/Login Rules After Header/Footer Are Injected
+    applyVisibilityRules();
+})();
