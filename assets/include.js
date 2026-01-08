@@ -35,6 +35,20 @@ async function applyHeaderAuthUi() {
             window.location.href = "login.html";
         };
     }
+
+    // Reset flags first
+    document.documentElement.classList.remove("auth-ready", "guest-ready", "owner-ready", "admin-ready");
+
+    if (!isLoggedIn) {
+        document.documentElement.classList.add("guest-ready");
+        return;
+    }
+
+    document.documentElement.classList.add("auth-ready");
+
+    if (role === "Owner") document.documentElement.classList.add("owner-ready");
+    if (role === "Admin") document.documentElement.classList.add("admin-ready");
+
 }
 
 async function bootLayout() {

@@ -14,10 +14,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="assets/app.css"/>
+
 </head>
 
 <body>
+
+
 <div id="site-header"></div>
+
+<section class="mt-6" data-shop-points></section>
 
 <main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
     <section class="card" style="padding:22px;">
@@ -195,6 +200,41 @@
                     alert(err.message || "Error Publishing Promotion.");
                 }
             });
+        }
+    })();
+</script>
+<script>
+    (async () => {
+        const profile = await getMyProfile();
+        if (!profile) return;
+
+        // Points panel (Owner/Admin)
+        const pointsBox = document.querySelector("[data-shop-points]");
+        if (pointsBox && (profile.role === "Owner" || profile.role === "Admin")) {
+            const shop = await getShopTotal();
+
+            pointsBox.innerHTML = `
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card p-6">
+            <div class="ty-caption text-slate-500">Points Earned</div>
+            <div class="ty-keyfigure mt-2">${shop?.shop_points_earned ?? 0}</div>
+          </div>
+          <div class="card p-6">
+            <div class="ty-caption text-slate-500">Points Spent</div>
+            <div class="ty-keyfigure mt-2">${shop?.shop_points_spent ?? 0}</div>
+          </div>
+          <div class="card p-6">
+            <div class="ty-caption text-slate-500">Points Balance</div>
+            <div class="ty-keyfigure mt-2">${shop?.shop_points_balance ?? 0}</div>
+          </div>
+        </div>
+      `;
+        }
+
+        // Promotions catalog (Spend-based)
+        const promoGrid = document.querySelector("[data-promotions-grid]");
+        if (promoGrid) {
+            await renderPromotionsSpendBased("[data-promotions-grid]");
         }
     })();
 </script>
