@@ -1,18 +1,16 @@
 // assets/app-api.js
 
+
 async function getMyProfile() {
-    if (!window.appState.session) await refreshSession();
-    const session = window.appState.session;
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) return null;
 
-    const { data, error } = await supabaseClient
+    const { data } = await supabaseClient
         .from("profiles")
-        .select("id, role, full_name, workshop_id")
+        .select("*")
         .eq("id", session.user.id)
         .single();
 
-    if (error) return null;
-    window.appState.profile = data;
     return data;
 }
 
