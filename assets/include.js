@@ -86,3 +86,45 @@ document.querySelectorAll("#mobileMenu a").forEach(link => {
         document.body.style.overflow = "";
     });
 });
+
+function initMobileMenu() {
+    const burgerBtn = document.getElementById("burgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const closeBurger = document.getElementById("closeBurger");
+
+    if (!burgerBtn || !mobileMenu || !closeBurger) return;
+
+    const openMenu = () => {
+        mobileMenu.classList.remove("hidden");
+        // Let browser apply display first, then animate
+        requestAnimationFrame(() => {
+            mobileMenu.classList.add("is-open");
+            document.body.style.overflow = "hidden";
+        });
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove("is-open");
+        document.body.style.overflow = "";
+        // Wait for animation to end, then hide
+        setTimeout(() => mobileMenu.classList.add("hidden"), 250);
+    };
+
+    burgerBtn.addEventListener("click", openMenu);
+    closeBurger.addEventListener("click", closeMenu);
+
+    // Close when clicking outside panel (overlay area)
+    mobileMenu.addEventListener("click", (e) => {
+        if (e.target === mobileMenu) closeMenu();
+    });
+
+    // Close on link click
+    mobileMenu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", closeMenu);
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) closeMenu();
+    });
+}
