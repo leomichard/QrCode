@@ -75,6 +75,8 @@ async function applyHeaderAuthUi() {
     document.documentElement.classList.add("auth-ready");
     if (role === "Owner") document.documentElement.classList.add("owner-ready");
     if (role === "Admin") document.documentElement.classList.add("admin-ready");
+    hideNavItemsOnCurrentPage();
+
 }
 
 function initMobileMenu() {
@@ -130,6 +132,14 @@ async function bootLayout() {
     highlightActiveNavLink();
     hideHomeLinkOnIndex();
     hideNavItemsOnCurrentPage();
+    console.log("[DEBUG] bootLayout done");
+    console.log("[DEBUG] current page:", window.location.pathname.split("/").pop());
+
+    console.log("[DEBUG] data-hide-on elements:", document.querySelectorAll("[data-hide-on]").length);
+    document.querySelectorAll("[data-hide-on]").forEach(el => {
+        console.log("[DEBUG] hide-on:", el.getAttribute("data-hide-on"), "href:", el.getAttribute("href"), "text:", el.textContent.trim(), "classes:", el.className);
+    });
+
 
 
 }
@@ -164,18 +174,25 @@ function hideHomeLinkOnIndex() {
 }
 
 function hideNavItemsOnCurrentPage() {
-    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    console.log("[DEBUG] hideNavItemsOnCurrentPage running");
+
+    const raw = window.location.pathname.split("/").pop() || "index.html";
+    const currentPage = raw.split("?")[0].split("#")[0];
 
     document.querySelectorAll("[data-hide-on]").forEach(el => {
-        const pages = el.getAttribute("data-hide-on")
-            .split(",")
-            .map(p => p.trim());
+        const attr = el.getAttribute("data-hide-on") || "";
+        const pages = attr.split(",").map(p => p.trim()).filter(Boolean);
+        console.log("[DEBUG] HIDE:", el.textContent.trim(), "for page:", currentPage);
+
+        // reset first (so it works when navigating back)
+        el.classList.remove("page-hidden");
 
         if (pages.includes(currentPage)) {
             el.classList.remove("is-active"); // safety
-            el.style.display = "none";
+            el.classList.add("page-hidden");  // ✅ beats !important guest/auth rules
         }
     });
 }
+
 
 

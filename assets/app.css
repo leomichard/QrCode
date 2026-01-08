@@ -160,4 +160,14 @@ body{
     border-radius: 12px;
 }
 
+/* Force hide elements regardless of auth-ready/guest-ready rules */
+.page-hidden {
+    display: none !important;
+}
+
+button:focus {
+    outline: none;
+}
+
+
 
