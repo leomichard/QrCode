@@ -4,7 +4,32 @@
 <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" data-admin-only>
     Qr List
 </a>
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenu"
+     class="fixed inset-0 z-50 bg-white hidden flex-col">
 
+    <div class="flex items-center justify-between p-5 border-b">
+        <span class="ty-subtitle-1">Menu</span>
+        <button id="closeBurger" aria-label="Close Menu">
+            ✕
+        </button>
+    </div>
+
+    <nav class="flex flex-col p-6 gap-4">
+        <a href="index.html" class="ty-body-1">Home</a>
+
+        <a href="dashboard.html" class="ty-body-1" data-auth-only>Dashboard</a>
+        <a href="qr-list.html" class="ty-body-1" data-owner-only>Qr List</a>
+
+        <a href="login.html" class="ty-body-1" data-guest-only>Login</a>
+        <a href="register.html" class="ty-body-1" data-guest-only>Register</a>
+
+        <button class="text-left ty-body-1 text-red-600"
+                data-auth-only onclick="logoutAndRedirect()">
+            Logout
+        </button>
+    </nav>
+</div>
 <header class="card" style="margin:16px auto; max-width:1100px;">
 
     <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;">
@@ -16,25 +41,42 @@
                 <div class="ty-caption text-slate-500 -mt-0.5">TotalEnergies</div>
             </div>
         </a>
+        <!-- Mobile Burger Button -->
+        <button id="burgerBtn"
+                class="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-slate-200"
+                aria-label="Open Menu">
+            <span class="sr-only">Open Menu</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+        <!--Navigation Links-->
+        <nav class="hidden md:flex items-center gap-6">
+            <!-- existing links -->
+            <nav style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
 
-        <nav style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-            <a class="btn btn-outline ty-button" href="index.html">Home</a>
-            <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" data-owner-only>
-                Qr List
-            </a>
-            <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" data-admin-only>
-                Qr List
-            </a>
-            <a class="btn btn-outline ty-button" href="dashboard.html" data-auth-only
-               style="display:none;">Dashboard</a>
-            <a class="btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
 
-            <a class="btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
+                <a class="btn btn-outline ty-button" href="index.html">Home</a>
+                <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" data-owner-only>
+                    Qr List
+                </a>
+                <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-2" data-admin-only>
+                    Qr List
+                </a>
+                <a class="btn btn-outline ty-button" href="dashboard.html" data-auth-only
+                   style="display:none;">Dashboard</a>
+                <a class="btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
 
-            <a class="btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
-            <a class="btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
+                <a class="btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
 
-            <button class="btn btn-primary ty-button" data-logout data-auth-only style="display:none;">Logout</button>
+                <a class="btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
+                <a class="btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
+
+                <button class="btn btn-primary ty-button" data-logout data-auth-only style="display:none;">Logout
+                </button>
+            </nav>
         </nav>
     </div>
 

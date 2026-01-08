@@ -3,7 +3,7 @@
 async function loadPartial(selector, url) {
     const el = document.querySelector(selector);
     if (!el) return;
-    const res = await fetch(url, { cache: "no-cache" });
+    const res = await fetch(url, {cache: "no-cache"});
     el.innerHTML = await res.text();
 }
 
@@ -58,3 +58,31 @@ async function bootLayout() {
 }
 
 document.addEventListener("DOMContentLoaded", bootLayout);
+
+
+// Mobile burger menu
+const burgerBtn = document.getElementById("burgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const closeBurger = document.getElementById("closeBurger");
+
+if (burgerBtn && mobileMenu) {
+    burgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+    });
+}
+
+if (closeBurger && mobileMenu) {
+    closeBurger.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        document.body.style.overflow = "";
+    });
+}
+// Close mobile menu on link click
+
+document.querySelectorAll("#mobileMenu a").forEach(link => {
+    link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        document.body.style.overflow = "";
+    });
+});
