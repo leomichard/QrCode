@@ -36,7 +36,7 @@
     <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;">
         <a href="index.html" class="flex items-center gap-3">
             <img src="assets/imgs/logototal.svg" alt="Logo TotalEnergies"
-                 class="h-12 w-12 rounded-xl grid place-items-center text-white font-semibold"></img>
+                 class="h-12 w-12 rounded-xl grid place-items-center text-white font-semibold">
             <div class="leading-tight">
                 <div class="ty-subtitle-1" style="color:#374649;">Quartz</div>
                 <div class="ty-caption text-slate-500 -mt-0.5">TotalEnergies</div>
@@ -66,12 +66,25 @@
                 </a>
                 <a class="nav-link btn btn-outline ty-button" href="dashboard.html" data-auth-only
                    style="display:none;">Dashboard</a>
-                <a class="nav-link btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
+                <a class="nav-link btn btn-outline ty-button" href="team.html" data-auth-only
+                   style="display:none;">Team</a>
 
                 <a class="nav-link btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
 
-                <a class="nav-link btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
-                <a class="nav-link btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
+                <a href="login.html"
+                   class="btn-nav nav-link ty-button"
+                   data-guest-only
+                   data-hide-on="login.html,register.html">
+                    LoginA
+                </a>
+
+
+                <a href="register.html"
+                   class="btn-nav nav-link ty-button"
+                   data-guest-only
+                   data-hide-on="login.html,register.html">
+                    Register
+                </a>
 
                 <a href="account.html" class="nav-link btn btn-outline ty-button" data-auth-only>My Account</a>
 

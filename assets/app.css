@@ -61,6 +61,35 @@ body{
     color: var(--white);
 }
 
+/* Navigation button (Login/Register in header) */
+.btn-nav {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+    padding: .75rem 1rem;
+    border-radius: 14px;
+    border: 1px solid ;
+    cursor:pointer;
+    text-decoration:none;
+    background: var(--white);
+    color: var(--gray);
+    border-color: rgba(183,203,211,.85);
+
+}
+
+.btn-nav:hover {
+    background: var(--bg);
+}
+
+/* Active nav button (current page) */
+.btn-nav.is-active {
+    color: var(--red);
+    border-color: var(--red);
+    background: var(--white);
+}
+
+
 .btn-outline{
     background: var(--white);
     color: var(--gray);
@@ -121,4 +150,14 @@ body{
     border-left: 4px solid #ED0000;
     border-radius: 10px;
 }
+/* Prevent ugly focus rectangle on hidden/active transitions */
+.nav-link:focus {
+    outline: none;
+}
+.nav-link:focus-visible {
+    outline: 2px solid #ED0000;
+    outline-offset: 2px;
+    border-radius: 12px;
+}
+
 
