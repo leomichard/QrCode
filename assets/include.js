@@ -25,7 +25,7 @@ async function applyHeaderAuthUi() {
     if (who) {
         who.textContent = signedIn
             ? `Signed In As ${profile?.full_name || "User"} (${role || "Role"})`
-            : "Not Signed In";
+            : "Energizing life. Every day.";
     }
 
     const logoutBtn = document.querySelector("[data-logout]");
