@@ -129,6 +129,8 @@ async function bootLayout() {
     // highlight current page
     highlightActiveNavLink();
     hideHomeLinkOnIndex();
+    hideNavItemsOnCurrentPage();
+
 
 }
 
@@ -160,4 +162,20 @@ function hideHomeLinkOnIndex() {
         el.style.display = "none";
     });
 }
+
+function hideNavItemsOnCurrentPage() {
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+    document.querySelectorAll("[data-hide-on]").forEach(el => {
+        const pages = el.getAttribute("data-hide-on")
+            .split(",")
+            .map(p => p.trim());
+
+        if (pages.includes(currentPage)) {
+            el.classList.remove("is-active"); // safety
+            el.style.display = "none";
+        }
+    });
+}
+
 
