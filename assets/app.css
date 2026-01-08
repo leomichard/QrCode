@@ -101,3 +101,24 @@ body{
     color: var(--white);
     border-color: var(--gray);
 }
+
+/* Active navigation link */
+.nav-link.is-active {
+    color: #ED0000;
+    border: 1px solid #ED0000;
+    border-radius: 12px;
+}
+
+/* Desktop emphasis */
+.nav-link.is-active {
+    padding: 6px 12px;
+}
+
+/* Mobile (burger) emphasis */
+.mobile-menu-nav .nav-link.is-active {
+    padding-left: 18px;           /* advance it slightly */
+    margin-left: 6px;
+    border-left: 4px solid #ED0000;
+    border-radius: 10px;
+}
+

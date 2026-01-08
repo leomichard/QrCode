@@ -213,3 +213,10 @@ async function renderPromotionsSpendBased(containerSelector) {
         });
     });
 }
+
+function isValidPhone(phone) {
+    if (!phone) return true; // allow empty
+    // Accepts: +66..., digits, spaces, dashes
+    const cleaned = phone.replace(/[\s\-]/g, "");
+    return /^\+\d{8,15}$/.test(cleaned);
+}

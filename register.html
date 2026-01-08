@@ -32,6 +32,13 @@
             <input class="input ty-body-2" name="password" type="password" placeholder="Password"
                    autocomplete="new-password"/>
 
+            <div>
+                <label class="ty-caption">Confirm Password</label>
+                <input name="confirm_password" type="password" required class="input w-full mt-1"
+                       placeholder="Confirm Password"/>
+            </div>
+
+
             <button class="btn btn-primary ty-button" type="submit">Register</button>
 
             <p class="ty-caption" style="color:#7A8C92;">
@@ -57,9 +64,16 @@
         const fullName = f.full_name.value.trim();
         const email = f.email.value.trim();
         const password = f.password.value.trim();
+        const confirmPassword = (document.querySelector('[name="confirm_password"]')?.value || "").trim();
 
         if (!fullName || !email || !password) {
             alert("Please Fill In All Fields.");
+            return;
+        }
+
+
+        if (password !== confirmPassword) {
+            alert("Passwords Do Not Match.");
             return;
         }
 

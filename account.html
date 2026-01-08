@@ -107,6 +107,9 @@
         document.querySelector('[name="phone"]').value = profile?.phone || "";
         document.querySelector('[name="address"]').value = profile?.address || "";
 
+        const phone = e.target.phone.value.trim();
+        if (!isValidPhone(phone)) return alert("Please Enter A Valid Phone Number.");
+
         // Update profile (phone, address, name)
         document.getElementById("profileForm").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -133,10 +136,17 @@
             const email = e.target.email.value.trim();
             if (!email) return alert("Please Enter A New Email.");
 
-            const {error} = await supabaseClient.auth.updateUser({email});
+            const { error } = await supabaseClient.auth.updateUser({ email });
 
-            if (error) alert(error.message);
-            else alert("Please Check Your New Email To Confirm The Change.");
+            if (error) {
+                alert(error.message);
+                return;
+            }
+
+            alert("Please Check Your New Email To Confirm The Change. You Will Be Signed Out Now.");
+
+            await supabaseClient.auth.signOut();
+            window.location.href = "login.html";
         });
 
         // Update password

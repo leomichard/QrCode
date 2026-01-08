@@ -1,5 +1,3 @@
-
-
 <!-- Mobile Menu Overlay -->
 <div id="mobileMenu"
      class="fixed inset-0 z-50 bg-white hidden flex-col">
@@ -12,22 +10,19 @@
     </div>
 
     <nav class="flex flex-col p-6 gap-4">
-        <a href="index.html" class="ty-body-1">Home</a>
+        <a href="index.html" class="nav-link ty-body-1" data-hide-on-home>Home</a>
 
-        <a href="dashboard.html" class="ty-body-1" data-auth-only>Dashboard</a>
+        <a href="dashboard.html" class="nav-link ty-body-1" data-auth-only>Dashboard</a>
 
-        <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-1" data-admin-only>
-            Qr List
+        <a href="qr-list.html" class="nav-link ty-body-1" data-admin-only>Qr List
         </a>
-        <a href="qr-list.html" class="px-3 py-2 rounded-xl hover:bg-slate-50 ty-body-1" data-owner-only>
-            Qr List
+        <a href="qr-list.html" class="nav-link ty-body-1" data-owner-only>Qr List
         </a>
 
-        <a href="login.html" class="ty-body-1" data-guest-only>Login</a>
-        <a href="register.html" class="ty-body-1" data-guest-only>Register</a>
+        <a href="login.html" class="nav-link ty-body-1" data-guest-only>Login</a>
+        <a href="register.html" class="nav-link ty-body-1" data-guest-only>Register</a>
 
-        <a href="account.html" class="ty-body-1" data-auth-only>My Account</a>
-
+        <a href="account.html" class="nav-link ty-body-1" data-auth-only>My Account</a>
 
 
         <button class="text-left ty-body-1 text-red-600"
@@ -64,23 +59,21 @@
             <nav style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
 
 
-                <a class="btn btn-outline ty-button" href="index.html">Home</a>
-                <a href="qr-list.html" class="btn btn-outline ty-button" data-owner-only>
-                    Qr List
+                <a class="btn btn-outline ty-button" href="index.html" data-hide-on-home>Home</a>
+                <a href="qr-list.html" class="nav-link btn btn-outline ty-button" data-owner-only>Qr List
                 </a>
-                <a href="qr-list.html" class="btn btn-outline ty-button" data-admin-only>
-                    Qr List
+                <a href="qr-list.html" class="nav-link btn btn-outline ty-button" data-admin-only>Qr List
                 </a>
-                <a class="btn btn-outline ty-button" href="dashboard.html" data-auth-only
+                <a class="nav-link btn btn-outline ty-button" href="dashboard.html" data-auth-only
                    style="display:none;">Dashboard</a>
-                <a class="btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
+                <a class="nav-link btn btn-outline ty-button" href="team.html" data-auth-only style="display:none;">Team</a>
 
-                <a class="btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
+                <a class="nav-link btn btn-outline ty-button" href="admin.html" data-admin-only style="display:none;">Admin</a>
 
-                <a class="btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
-                <a class="btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
+                <a class="nav-link btn btn-primary ty-button" href="login.html" data-guest-only>Login</a>
+                <a class="nav-link btn btn-outline ty-button" href="register.html" data-guest-only>Register</a>
 
-                <a href="account.html" class="btn btn-outline ty-button" data-auth-only>My Account</a>
+                <a href="account.html" class="nav-link btn btn-outline ty-button" data-auth-only>My Account</a>
 
                 <button class="btn btn-primary ty-button" data-logout data-auth-only style="display:none;">Logout
                 </button>

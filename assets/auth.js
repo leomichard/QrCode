@@ -1,4 +1,6 @@
 // assets/auth.js
+// Global app state (must exist before refreshSession uses it)
+window.appState = window.appState || { session: null, profile: null };
 
 async function signUp(fullName, email, password) {
     const { data, error } = await supabaseClient.auth.signUp({

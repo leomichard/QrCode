@@ -92,11 +92,44 @@ async function bootLayout() {
     await loadPartial("#site-header", "partials/header.html");
     await loadPartial("#site-footer", "partials/footer.html");
 
-    // ✅ Initialize burger AFTER header is injected
+    // Initialize burger AFTER header is injected
     initMobileMenu();
 
-    // ✅ Apply auth UI AFTER header exists too
+    // Apply auth UI AFTER header exists too
     await applyHeaderAuthUi();
+
+    // highlight current page
+    highlightActiveNavLink();
+    hideHomeLinkOnIndex();
+
 }
 
 document.addEventListener("DOMContentLoaded", bootLayout);
+
+function highlightActiveNavLink() {
+    const currentPath = window.location.pathname.split("/").pop() || "index.html";
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+        const linkPath = link.getAttribute("href");
+
+        if (!linkPath) return;
+
+        if (linkPath === currentPath) {
+            link.classList.add("is-active");
+        } else {
+            link.classList.remove("is-active");
+        }
+    });
+}
+
+function hideHomeLinkOnIndex() {
+    const currentPath = window.location.pathname.split("/").pop() || "index.html";
+    const isHome = (currentPath === "" || currentPath === "index.html");
+
+    if (!isHome) return;
+
+    document.querySelectorAll("[data-hide-on-home]").forEach(el => {
+        el.style.display = "none";
+    });
+}
+
