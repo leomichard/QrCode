@@ -1,6 +1,4 @@
 // assets/app-api.js
-
-
 async function getMyProfile() {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) return null;
