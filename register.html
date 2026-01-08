@@ -1,16 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Register</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="assets/app.css" />
+    <link rel="stylesheet" href="assets/app.css"/>
 </head>
 
 <body>
@@ -24,9 +26,10 @@
         </p>
 
         <form id="registerForm" style="margin-top:14px;display:grid;gap:10px;">
-            <input class="input ty-body-2" name="full_name" placeholder="Full Name" autocomplete="name" />
-            <input class="input ty-body-2" name="email" placeholder="Email" autocomplete="email" />
-            <input class="input ty-body-2" name="password" type="password" placeholder="Password" autocomplete="new-password" />
+            <input class="input ty-body-2" name="full_name" placeholder="Full Name" autocomplete="name"/>
+            <input class="input ty-body-2" name="email" placeholder="Email" autocomplete="email"/>
+            <input class="input ty-body-2" name="password" type="password" placeholder="Password"
+                   autocomplete="new-password"/>
 
             <button class="btn btn-primary ty-button" type="submit">Register</button>
 

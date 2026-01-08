@@ -1,16 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Admin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="assets/app.css" />
+    <link rel="stylesheet" href="assets/app.css"/>
 </head>
 
 <body>
@@ -37,9 +39,9 @@
             </p>
 
             <form id="globalPromoForm" style="margin-top:14px;display:grid;gap:10px;">
-                <input class="input ty-body-2" name="title" placeholder="Title" />
-                <input class="input ty-body-2" name="imageUrl" placeholder="Image Url" />
-                <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)" />
+                <input class="input ty-body-2" name="title" placeholder="Title"/>
+                <input class="input ty-body-2" name="imageUrl" placeholder="Image Url"/>
+                <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)"/>
                 <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
                 <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
             </form>
@@ -68,7 +70,7 @@
         document.getElementById("content").style.display = "";
 
         // Overview via view v_admin_overview (you created it earlier)
-        const { data: overview, error } = await supabaseClient.from("v_admin_overview").select("*").single();
+        const {data: overview, error} = await supabaseClient.from("v_admin_overview").select("*").single();
         if (error) {
             alert("Admin Overview View Missing Or Not Accessible.");
             return;

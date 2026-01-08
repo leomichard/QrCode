@@ -1,16 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Dashboard</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="assets/app.css" />
+    <link rel="stylesheet" href="assets/app.css"/>
 </head>
 
 <body>
@@ -34,7 +36,8 @@
             <h2 class="ty-headline">Promotions Catalog</h2>
             <p class="ty-caption" style="color:#7A8C92;">Unlock Based On Shop Total Points.</p>
         </div>
-        <div data-promotions-grid style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px;"></div>
+        <div data-promotions-grid
+             style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px;"></div>
     </section>
 
     <section class="card" style="padding:22px;margin-top:18px;" data-owner-only style="display:none;">
@@ -44,9 +47,9 @@
         </p>
 
         <form data-promo-form style="margin-top:14px;display:grid;gap:10px;">
-            <input class="input ty-body-2" name="title" placeholder="Title" />
-            <input class="input ty-body-2" name="imageUrl" placeholder="Image Url" />
-            <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 200)" />
+            <input class="input ty-body-2" name="title" placeholder="Title"/>
+            <input class="input ty-body-2" name="imageUrl" placeholder="Image Url"/>
+            <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 200)"/>
             <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
             <button class="btn btn-primary ty-button" type="submit">Publish Promotion</button>
         </form>
