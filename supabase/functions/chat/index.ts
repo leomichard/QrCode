@@ -6,7 +6,7 @@ Deno.serve(async (req) => {
   }
 
   const { message } = await req.json()
-  const MISTRAL_API_KEY = Deno.env.get('MISTRAL_API_KEY')
+  const MISTRAL_API_KEY = Deno.env.get('TOTALQRCODE')
 
   const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
     method: 'POST',
