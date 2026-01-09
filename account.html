@@ -19,8 +19,14 @@
                 <script src="assets/auth.js"></script>
                 <script src="assets/app-api.js"></script>
 
-                <!-- Google Places API -->
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwJEFJ3CNlbo8ISqe-Nl20CDPvWgUDLA&libraries=places"></script>
+                <script src="config.js"></script>
+                <script>
+                    // Charger Google Places API dynamiquement
+                    const script = document.createElement('script');
+                    script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_API_KEY}&libraries=places`;
+                    document.head.appendChild(script);
+                </script>
+
             </head>
 
             <body class="min-h-screen">
