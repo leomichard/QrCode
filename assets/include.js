@@ -75,7 +75,8 @@ async function applyHeaderAuthUi() {
     document.documentElement.classList.add("auth-ready");
     if (role === "Owner") document.documentElement.classList.add("owner-ready");
     if (role === "Admin") document.documentElement.classList.add("admin-ready");
-    hideNavItemsOnCurrentPage();
+    hideDesktopAuthButtonsOnAuthPages();
+
 
 }
 
@@ -132,13 +133,8 @@ async function bootLayout() {
     highlightActiveNavLink();
     hideHomeLinkOnIndex();
     hideNavItemsOnCurrentPage();
-    console.log("[DEBUG] bootLayout done");
-    console.log("[DEBUG] current page:", window.location.pathname.split("/").pop());
+    hideDesktopAuthButtonsOnAuthPages();
 
-    console.log("[DEBUG] data-hide-on elements:", document.querySelectorAll("[data-hide-on]").length);
-    document.querySelectorAll("[data-hide-on]").forEach(el => {
-        console.log("[DEBUG] hide-on:", el.getAttribute("data-hide-on"), "href:", el.getAttribute("href"), "text:", el.textContent.trim(), "classes:", el.className);
-    });
 
 
 
@@ -193,6 +189,25 @@ function hideNavItemsOnCurrentPage() {
         }
     });
 }
+
+function hideDesktopAuthButtonsOnAuthPages() {
+    const raw = window.location.pathname.split("/").pop() || "index.html";
+    const page = raw.split("?")[0].split("#")[0];
+
+    // Only on login/register pages
+    if (page !== "login.html" && page !== "register.html") return;
+
+    // Desktop nav container (the one that is md:flex)
+    const desktopNav = document.querySelector("header nav.hidden.md\\:flex");
+    if (!desktopNav) return;
+
+    // Hide both Login + Register inside desktop nav
+    desktopNav.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => {
+        a.classList.add("page-hidden");
+        a.hidden = true; // extra strong
+    });
+}
+
 
 
 

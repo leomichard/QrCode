@@ -79,7 +79,7 @@
 
         try {
             await signUp(fullName, email, password);
-            alert("Account Created. You Can Login Now.");
+            alert("Account Created. Please Check Your Email To Verify Your Account.");
             window.location.href = "login.html";
         } catch (err) {
             alert(err.message || "Register Failed.");
