@@ -1,2 +1,116 @@
-je devrais pouvoir dans admin.html
-manage promotions, avoir une fonctionnalité pour modifier les promotions existantes
+## Bouton flottant avec Mistral AI
+
+Voici comment intégrer un chat flottant avec l'API Mistral dans `index.html` :
+
+### Étape 1 : Créer l'API backend sur Vercel
+
+Crée un fichier `api/chat.js` dans ton projet Vercel :
+
+```javascript
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const { message } = req.body;
+
+    try {
+        const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.MISTRAL_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'mistral-small-latest',
+                messages: [
+                    { role: 'system', content: 'Tu es un assistant pour Quartz QR, une application de QR codes avec points et promotions. Réponds de manière concise et utile.' },
+                    { role: 'user', content: message }
+                ]
+            })
+        });
+
+        const data = await response.json();
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+```
+
+### Étape 2 : Ajouter le chat dans `index.html`
+
+Ajoute ce code avant `</body>` :
+
+```html
+<!-- Floating Chat Button -->
+<button id="chatBtn"
+        class="fixed bottom-6 right-6 bg-[#00B894] p-4 rounded-full shadow-lg hover:scale-110 transition z-50 text-white font-medium">
+    💬 Need Help?
+</button>
+
+<!-- Chatbox -->
+<div id="chatBox" class="hidden fixed bottom-20 right-6 w-80 bg-white border border-gray-200 rounded-2xl shadow-lg flex flex-col z-50" style="height: 400px;">
+    <div class="p-3 border-b border-gray-200 text-[#00B894] font-bold flex justify-between items-center">
+        <span>Quartz AI Assistant</span>
+        <button id="closeChat" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
+    <div id="chatMessages" class="flex-1 p-3 overflow-y-auto text-sm text-gray-700 space-y-2"></div>
+    <form id="chatForm" class="p-3 flex gap-2 border-t border-gray-200">
+        <input id="chatInput" type="text" placeholder="Ask something..." 
+               class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00B894]">
+        <button type="submit" class="bg-[#00B894] px-4 py-2 rounded-lg text-white font-bold hover:bg-[#00a085]">→</button>
+    </form>
+</div>
+
+<script>
+    const chatBtn = document.getElementById('chatBtn');
+    const chatBox = document.getElementById('chatBox');
+    const closeChat = document.getElementById('closeChat');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatBtn.addEventListener('click', () => chatBox.classList.toggle('hidden'));
+    closeChat.addEventListener('click', () => chatBox.classList.add('hidden'));
+
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userMsg = chatInput.value.trim();
+        if (!userMsg) return;
+
+        chatMessages.innerHTML += `<div class="text-[#00B894] font-medium">You: ${userMsg}</div>`;
+        chatInput.value = '';
+
+        // Indicateur de chargement
+        const loadingId = Date.now();
+        chatMessages.innerHTML += `<div id="loading-${loadingId}" class="text-gray-400">🤖 Typing...</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const res = await fetch("https://ton-projet.vercel.app/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMsg })
+            });
+
+            const data = await res.json();
+            document.getElementById(`loading-${loadingId}`).remove();
+
+            const botReply = data?.choices?.[0]?.message?.content || data.error || "No response from AI 🤖";
+            chatMessages.innerHTML += `<div class="text-gray-600">🤖 ${botReply}</div>`;
+        } catch (err) {
+            document.getElementById(`loading-${loadingId}`).remove();
+            chatMessages.innerHTML += `<div class="text-red-500">⚠️ Error: ${err.message}</div>`;
+        }
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+</script>
+```
+
+### Étape 3 : Configuration Vercel
+
+Ajoute la variable d'environnement `MISTRAL_API_KEY` dans les settings de ton projet Vercel.
+
+Remplace `https://ton-projet.vercel.app/api/chat` par l'URL de ton déploiement Vercel.
