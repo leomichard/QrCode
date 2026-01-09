@@ -21,11 +21,10 @@
 <main class="min-h-screen flex items-start justify-center" style="padding:5px 16px 30px;">
     <div class="flex items-stretch gap-6 w-full max-w-4xl">
         <!-- Colonne gauche : image (va prendre la même hauteur que la section) -->
-        <div style="flex:1;min-width:0;display:flex;">
+        <div class="hidden md:flex flex-1 min-w-0">
             <img src="assets/imgs/Quartz.webp" alt="Quartz"
-                 style="width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;">
+                 class="w-full h-full object-cover rounded-md block">
         </div>
-
         <!-- Colonne droite : formulaire (à droite) -->
         <section class="card"
                  style="padding:22px;min-height:420px;max-width:520px;flex:1;display:flex;flex-direction:column;justify-content:center;">

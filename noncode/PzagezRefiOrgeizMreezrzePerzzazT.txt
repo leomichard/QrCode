@@ -4,20 +4,18 @@ Le site ne s'affiche pas correctement, il affiche Qr code sur github pages et il
 
 
 
-                                 The Nunito typography is mainly used for section titles,
-                                 and for some key values or figures when they are visual.
+   The Nunito typography is mainly used for section titles,
+   and for some key values or figures when they are visual.
 
 
-                                 Roboto typography is used throughout the interface,
-                                 except in the cases mentioned above.
+   Roboto typography is used throughout the interface, except in the cases mentioned above.
 
-
-                                 The use of titles in capital letters is to be avoided: write
-                                 titles in lower case.
-
-
-                                 These two typrographies can be downloaded online via
-                                 Google fonts:
+The use of titles in capital letters is to be avoided: write titles in lower case
+                                 .
+These two typrographies can be downloaded online via<div class="hidden md:flex flex-1 min-w-0">
+    <img src="assets/imgs/Quartz.webp" alt="Quartz"
+         class="w-full h-full object-cover rounded-md block">
+</div> Google fonts:
 
 
                                  https://fonts.google.com/specimen/Nunito
