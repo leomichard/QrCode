@@ -12,25 +12,15 @@ Le site ne s'affiche pas correctement, il affiche Qr code sur github pages et il
 
 The use of titles in capital letters is to be avoided: write titles in lower case
                                  .
-These two typrographies can be downloaded online via<div class="hidden md:flex flex-1 min-w-0">
-    <img src="assets/imgs/Quartz.webp" alt="Quartz"
-         class="w-full h-full object-cover rounded-md block">
-</div> Google fonts:
+ Google fonts:
 
-
-                                 https://fonts.google.com/specimen/Nunito
-
-                                 https://fonts.google.com/specimen/Roboto
-                                 Keyfigure Nunito, SemiBold 20px minimum
-                                 Headline Nunito, SemiBold 20px
-                                 Nunito Roboto
+ https://fonts.google.com/specimen/Nuhttps://fonts.google.com/specimen/Roboto
+        figure Nunito, SemiBold 20p  Headline Nunito, Semi   Nunito Roboto
                                  Subtitle 1 Roboto, Medium 16px
-                                 Subtitle 2 Roboto, Medium 14px
-                                 Button Roboto, Medium 14px
-                                 Body 1 Roboto, Regular 16px
-                                 Body 2 Roboto, Regular 14px
-                                 Caption Roboto, Regular 12px
-                                 OVERLINE Roboto, Regular 10px
+    Subtitle 2 Roboto, Medium 14px
+                      Button Roboto, Medium 14px
+               Body 1 Roboto, Regular 16 Body 2 Roboto, Regular 14px
+             Caption Roboto, Regular 1  OVERLINE Roboto, Regular 10px
 
 
 
