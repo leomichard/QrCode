@@ -8,7 +8,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="assets/app.css"/>
@@ -17,29 +18,36 @@
 <body>
 <div id="site-header"></div>
 
-<main style="max-width:520px;margin:0 auto;padding:10px 16px 30px;">
-    <section class="card" style="padding:22px;">
-        <h1 class="ty-headline">Login</h1>
-        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
-            Sign In To Access Your Dashboard.
-        </p>
+<main class="min-h-screen flex items-start justify-center" style="padding:5px 16px 30px;">
+    <div class="flex items-stretch gap-6 w-full max-w-4xl">
+        <!-- Colonne gauche : image (va prendre la même hauteur que la section) -->
+        <div style="flex:1;min-width:0;display:flex;">
+            <img src="assets/imgs/Quartz.webp" alt="Quartz"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:8px;display:block;">
+        </div>
 
-        <form id="loginForm" style="margin-top:14px;display:grid;gap:10px;">
-            <input class="input ty-body-2" name="email" placeholder="Email" autocomplete="email"/>
-            <input class="input ty-body-2" name="password" type="password" placeholder="Password"
-                   autocomplete="current-password"/>
+        <!-- Colonne droite : formulaire (à droite) -->
+        <section class="card"
+                 style="padding:22px;min-height:420px;max-width:520px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+            <div>
+                <h1 class="ty-headline">Login</h1>
+                <p class="ty-body-2" style="margin-top:6px;color:#55666A;">Sign In To Access Your Dashboard.</p>
 
-            <button class="btn btn-primary ty-button" type="submit">Login</button>
+                <form id="loginForm" style="margin-top:14px;display:grid;gap:10px;">
+                    <input class="input ty-body-2" name="email" placeholder="Email" autocomplete="email"/>
+                    <input class="input ty-body-2" name="password" type="password" placeholder="Password"
+                           autocomplete="current-password"/>
+                    <button class="btn btn-primary ty-button" type="submit">Login</button>
 
-            <a href="forgot-password.html" class="ty-caption text-red-600 mt-4 block">
-                Forgot your password?
-            </a>
+                    <a href="forgot-password.html" class="ty-caption text-red-600 mt-4 block">Forgot your password?</a>
 
-            <p class="ty-caption" style="color:#7A8C92;">
-                No Account Yet? <a class="link" href="register.html">Register</a>
-            </p>
-        </form>
-    </section>
+                    <p class="ty-caption" style="color:#7A8C92;">
+                        No Account Yet? <a class="link" href="register.html">Register</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </div>
 </main>
 
 <div id="site-footer"></div>
