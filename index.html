@@ -16,28 +16,7 @@
 
     <link rel="stylesheet" href="assets/app.css"/>
 </head>
-<!-- Chat Widget -->
-<div id="chat-widget" style="position:fixed;bottom:20px;right:20px;z-index:1000;">
-    <button id="chat-toggle"
-            style="width:60px;height:60px;border-radius:50%;background:#0066cc;color:white;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
-        💬
-    </button>
-    <div id="chat-box"
-         style="display:none;position:absolute;bottom:70px;right:0;width:350px;height:450px;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);flex-direction:column;">
-        <div style="padding:12px;background:#0066cc;color:white;border-radius:12px 12px 0 0;font-weight:bold;">
-            Quartz QR Assistant
-        </div>
-        <div id="chat-messages" style="flex:1;overflow-y:auto;padding:12px;"></div>
-        <div style="padding:12px;border-top:1px solid #eee;display:flex;gap:8px;">
-            <input id="chat-input" type="text" placeholder="Ask your question..."
-                   style="flex:1;padding:8px;border:1px solid #ddd;border-radius:6px;">
-            <button id="chat-send"
-                    style="padding:8px 16px;background:#0066cc;color:white;border:none;border-radius:6px;cursor:pointer;">
-                Send
-            </button>
-        </div>
-    </div>
-</div>
+
 
 <body>
 <div id="site-header"></div>
@@ -68,7 +47,28 @@
     </section>
 </main>
 
-
+<!-- Chat Widget -->
+<div id="chat-widget" style="position:fixed;bottom:20px;right:20px;z-index:1000;">
+    <button id="chat-toggle"
+            style="width:60px;height:60px;border-radius:50%;background:#0066cc;color:white;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+        💬l
+    </button>
+    <div id="chat-box"
+         style="display:none;position:absolute;bottom:70px;right:0;width:350px;height:450px;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);flex-direction:column;">
+        <div style="padding:12px;background:#0066cc;color:white;border-radius:12px 12px 0 0;font-weight:bold;">
+            Quartz QR Assistant
+        </div>
+        <div id="chat-messages" style="flex:1;overflow-y:auto;padding:12px;"></div>
+        <div style="padding:12px;border-top:1px solid #eee;display:flex;gap:8px;">
+            <input id="chat-input" type="text" placeholder="Ask your question..."
+                   style="flex:1;padding:8px;border:1px solid #ddd;border-radius:6px;">
+            <button id="chat-send"
+                    style="padding:8px 16px;background:#0066cc;color:white;border:none;border-radius:6px;cursor:pointer;">
+                Send
+            </button>
+        </div>
+    </div>
+</div>
 <div id="site-footer"></div>
 <script src="assets/chat.js"></script>
 
