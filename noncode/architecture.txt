@@ -1,17 +1,37 @@
-/docs
-  index.html
-  login.html
-  register.html
-  dashboard.html
-  team.html
-  qr-create.html
-  qr-list.html
-  scan-result.html
-  /partials
-    header.html
-    footer.html
-  /assets
-    app.css
-    include.js
+/assets
+ /imgs
+  favicon.ico
+  logototal.png
+  Quartz.webp
 
+ /model
+  Quartz_bottle.glb
+  QuartzBox.glb
 
+ app.css
+ app-api.js
+ app-state.js
+ auth.js
+ include.js
+ supabase-client.js
+
+/noncode
+ architecture.txt
+ README.md
+ Descriptif Projet en Anglais.txt
+
+/partials
+ footer.html
+ header.html
+
+index.html
+login.html
+account.html
+admin.html
+dashboard.html
+forgot-password.html
+reset-password.html
+register.html
+qr-list.html
+scan-result.html
+test.html
