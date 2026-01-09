@@ -41,7 +41,13 @@
 
             <form id="globalPromoForm" style="margin-top:14px;display:grid;gap:10px;">
                 <input class="input ty-body-2" name="title" placeholder="Title"/>
-                <input class="input ty-body-2" name="imageUrl" placeholder="Image Url"/>
+
+                <div>
+                    <label class="ty-caption">Image (URL or file)</label>
+                    <input class="input ty-body-2" name="imageUrl" placeholder="Image Url (Optionnal)"/>
+                    <input type="file" name="imageFile" accept="image/*" class="input ty-body-2" style="margin-top:6px;"/>
+                </div>
+
                 <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)"/>
                 <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
                 <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
@@ -102,24 +108,34 @@
             const f = e.target;
 
             const title = f.title.value.trim();
-            const imageUrl = f.imageUrl.value.trim();
+            let imageUrl = f.imageUrl.value.trim();
+            const imageFile = f.imageFile.files[0];
             const requiredPoints = f.requiredPoints.value.trim();
             const description = f.description.value.trim();
 
+            // Upload file si fourni
+            if (imageFile) {
+                const fileName = `promo_${Date.now()}_${imageFile.name}`;
+                const {data, error: uploadError} = await supabaseClient.storage
+                    .from("promotions")
+                    .upload(fileName, imageFile);
+
+                if (uploadError) {
+                    alert("Error uploading image: " + uploadError.message);
+                    return;
+                }
+
+                const {data: urlData} = supabaseClient.storage.from("promotions").getPublicUrl(fileName);
+                imageUrl = urlData.publicUrl;
+            }
+
             if (!title || !imageUrl || !description) {
-                alert("Please Fill In Title, Image Url, And Description.");
+                alert("Please Fill In Title, Image, And Description.");
                 return;
             }
 
             try {
-                await createPromotion({
-                    title,
-                    description,
-                    imageUrl,
-                    requiredPoints,
-                    workshopId: null
-                });
-
+                await createPromotion({title, description, imageUrl, requiredPoints, workshopId: null});
                 alert("Global Promotion Published.");
                 f.reset();
             } catch (err) {

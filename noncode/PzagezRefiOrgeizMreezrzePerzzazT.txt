@@ -1,141 +1,312 @@
-Le site ne s'affiche pas correctement, il affiche Qr code sur github pages et il s'affiche cependant sur le localhost, peux tu m'aider a faire en sorte a ce qu'il fonctionne sur Github pages.
- je vais en suite te demander de suivre toutes ces recommandations de style
-  The typographies have been designed for digital use.
+Dans Account.html lorsque l'on mets a jour son mot de passe, ou son email, la page ne se mets pas a jour et lorsque l'on rafraichit,
+les infos que l'on vient de rentrer ne sont pas prises en compte.
 
+Idem pour le changement de mail
 
+et Aussi, il faut rajouter une confirmation de mot de passe lors du changement de mot de passe pour éviter les erreurs de saisie.
 
-   The Nunito typography is mainly used for section titles,
-   and for some key values or figures when they are visual.
+Dans la publication de l'annonce, dans admin.html, serait il possible de load une image directement dans le formulaire et
+ainsi de laisser le choix entre ca et un lien externe ?
 
+Voici account.html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+    <title>My Account • Quartz</title>
 
-   Roboto typography is used throughout the interface, except in the cases mentioned above.
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
 
-The use of titles in capital letters is to be avoided: write titles in lower case
-                                 .
- Google fonts:
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/app.css"/>
 
- https://fonts.google.com/specimen/Nuhttps://fonts.google.com/specimen/Roboto
-        figure Nunito, SemiBold 20p  Headline Nunito, Semi   Nunito Roboto
-                                 Subtitle 1 Roboto, Medium 16px
-    Subtitle 2 Roboto, Medium 14px
-                      Button Roboto, Medium 14px
-               Body 1 Roboto, Regular 16 Body 2 Roboto, Regular 14px
-             Caption Roboto, Regular 1  OVERLINE Roboto, Regular 10px
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/supabase-client.js"></script>
+    <script src="assets/auth.js"></script>
+    <script src="assets/app-api.js"></script>
+</head>
 
+<body class="min-h-screen">
+<div id="site-header"></div>
 
+<main class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="ty-headline mb-6">My Account</h1>
 
+    <!-- Profile info -->
+    <section class="card p-6 mb-6">
+        <h2 class="ty-subtitle-1 mb-4">Profile Information</h2>
 
-                                 Red #ED0000 and dark grey #374649 are used mainly
-                                 for text. Red is reserved for links and action elements in
-                                 the application.
+        <form id="profileForm" class="space-y-4">
+            <div>
+                <label class="ty-caption">Full Name</label>
+                <input name="full_name" class="input w-full mt-1">
+            </div>
 
+            <div>
+                <label class="ty-caption">Phone Number</label>
+                <input name="phone" class="input w-full mt-1" placeholder="+66...">
+            </div>
 
-                                 Dark grey is mainly reserved for all text in the interface.
+            <div>
+                <label class="ty-caption">Address</label>
+                <textarea name="address" class="input w-full mt-1" rows="3"></textarea>
+            </div>
 
-                                 Both colors are accessible at the AA level when used on
-                                 white or light grey and grey backgrounds.
+            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                Save Profile
+            </button>
+        </form>
+    </section>
 
+    <!-- Email update -->
+    <section class="card p-6 mb-6">
+        <h2 class="ty-subtitle-1 mb-4">Email Address</h2>
 
-                                 White can only be used on text when contrast allows. It is
-                                 otherwise reserved for the background.
+        <form id="emailForm" class="space-y-4">
+            <div>
+                <label class="ty-caption">New Email</label>
+                <input name="email" type="email" class="input w-full mt-1">
+            </div>
 
+            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                Update Email
+            </button>
 
-                                 The W3C-WCAG accessibility standard recommends two
-                                 contrast ratios:
+            <p class="ty-caption text-slate-500">
+                A Confirmation Email Will Be Sent To The New Address.
+            </p>
+        </form>
+    </section>
 
+    <!-- Password update -->
+    <section class="card p-6">
+        <h2 class="ty-subtitle-1 mb-4">Password</h2>
 
-                                 3:1 = for texts or flat areas whose surface is large enough
-                                 to be easily readable.
+        <form id="passwordForm" class="space-y-4">
+            <div>
+                <label class="ty-caption">New Password</label>
+                <input name="password" type="password" class="input w-full mt-1">
+            </div>
 
-                                 4.5:1 = for text or solid areas whose surface area is
-                                 smaller and whose legibility becomes more difficult.
-                                 Main colors Secondary colors
-                                 These two colors are used mainly for interface elements.
-                                 Red
-                                 #ED0000
-                                 rgb (237,0,0)
-                                 Gray
-                                 #374649
-                                 rgb (55,70,73)
-                                 Gray Background
-                                 #F7F9FA
-                                 rgb (247,249,250)
-                                 Light Gray
-                                 #B7CBD3
-                                 rgb (183,203,211)
-                                 These three colors are used mainly for typography.
-                                 White
-                                 #FFFFFF
-                                 rgb (255,255,255)
+            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                Update Password
+            </button>
+        </form>
+    </section>
+</main>
 
+<div id="site-footer"></div>
+<script src="assets/include.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const {data: {session}} = await supabaseClient.auth.getSession();
+        if (!session) {
+            window.location.href = "login.html";
+            return;
+        }
 
+        const profile = await getMyProfile();
 
-                                 Solid colors are only used as cell backgrounds with text
-                                 or symbols in the foreground.
+        // Prefill profile
+        document.querySelector('[name="full_name"]').value = profile?.full_name || "";
+        document.querySelector('[name="phone"]').value = profile?.phone || "";
+        document.querySelector('[name="address"]').value = profile?.address || "";
 
+        const phone = e.target.phone.value.trim();
+        if (!isValidPhone(phone)) return alert("Please Enter A Valid Phone Number.");
 
+        // Update profile (phone, address, name)
+        document.getElementById("profileForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                                 Their use should remain marginal and is intended to bring
-                                 rhythm and variation to the whole interface. They are also
-                                 used to emphasise certain areas of the screen by contrast,
-                                 following the principles of information hierarchy.
+            const updates = {
+                full_name: e.target.full_name.value.trim(),
+                phone: e.target.phone.value.trim(),
+                address: e.target.address.value.trim()
+            };
 
+            const {error} = await supabaseClient
+                .from("profiles")
+                .update(updates)
+                .eq("id", session.user.id);
 
-                                 Grey and white solids should be used as a rule.
+            if (error) alert(error.message);
+            else alert("Profile Updated Successfully.");
+        });
 
+        // Update email
+        document.getElementById("emailForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
+            const email = e.target.email.value.trim();
+            if (!email) return alert("Please Enter A New Email.");
 
-                                  Warning, the red links (ED0000) are not accessible on
-                                 a background non-white.
+            const { error } = await supabaseClient.auth.updateUser({ email });
 
+            if (error) {
+                alert(error.message);
+                return;
+            }
 
-                                 By default, all flat colors can be used, with the aim of
-                                 promoting the brand's new multicolor and multi-energy
-                                 positioning.
-                                 Solid colors to be used as cell backgrounds only
-                                 Used as cell backgrounds with text or symbols in the foreground.
+            alert("Please Check Your New Email To Confirm The Change. You Will Be Signed Out Now.");
 
-                                 All flat colors can be used.
-                                 White text
+            await supabaseClient.auth.signOut();
+            window.location.href = "login.html";
+        });
 
-                                 only
-                                 White text
+        // Update password
+        document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                                 only
-                                 Text color
+            const password = e.target.password.value.trim();
+            if (!password) return alert("Please Enter A New Password.");
 
-                                 #374649
-                                 Text color
+            const {error} = await supabaseClient.auth.updateUser({password});
 
-                                 #374649
-                                 Blue Light
-                                 #80CDFF
-                                 rgb (128,205,255)
-                                 Blue
-                                 #285AFF
-                                 rgb (40,90,255)
-                                 Turquoise
-                                 #92EAEA
-                                 rgb (146,234,234)
-                                 Green Light
-                                 #72EAC5
-                                 rgb (114,234,197)
-                                 Neon Green
-                                 #BCF453
-                                 rgb (188,244,83)
-                                 Yellow
-                                 #FFE74F
-                                 rgb (255,231,79)
-                                 Orange Red
-                                 #DB3900
-                                 rgb (259,57,0)
-                                 Gray Background
-                                 #F7F9FA
-                                 rgb (247,249,250)
-                                 White
-                                 #FFFFFF
-                                 rgb (255,255,255)
-                                 Light Gray
-                                 #B7CBD3
-                                 rgb (183,203,211)
+            if (error) alert(error.message);
+            else alert("Password Updated Successfully.");
+        });
+    });
+</script>
+</body>
+</html>
+et admin.html
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+    <title>Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="assets/app.css"/>
+</head>
+
+<body>
+<div id="site-header"></div>
+
+<main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
+        <h1 class="ty-headline">Admin Dashboard</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">Global Statistics And Management.</p>
+    </section>
+
+    <section id="denied" class="card" style="padding:22px;margin-top:14px;display:none;">
+        <h2 class="ty-headline">Access Restricted</h2>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">You Must Be An Admin To View This Page.</p>
+    </section>
+
+    <section id="content" style="display:none;margin-top:14px;">
+        <div id="overview" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;"></div>
+
+        <section class="card" style="padding:22px;margin-top:14px;">
+            <h2 class="ty-headline">Create Global Promotion</h2>
+            <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+                Global Promotions Have No Workshop Id And Are Visible To Everyone.
+            </p>
+
+            <form id="globalPromoForm" style="margin-top:14px;display:grid;gap:10px;">
+                <input class="input ty-body-2" name="title" placeholder="Title"/>
+                <input class="input ty-body-2" name="imageUrl" placeholder="Image Url"/>
+                <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)"/>
+                <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
+                <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
+            </form>
+        </section>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/app-state.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/app-api.js"></script>
+<script src="assets/include.js"></script>
+
+<script>
+    (async () => {
+        await refreshSession();
+        const profile = await getMyProfile();
+
+        if (!window.appState.session || profile?.role !== "Admin") {
+            document.getElementById("denied").style.display = "";
+            return;
+        }
+
+        document.getElementById("content").style.display = "";
+
+        // Overview via view v_admin_overview (you created it earlier)
+        const {data: overview, error} = await supabaseClient.from("v_admin_overview").select("*").single();
+        if (error) {
+            alert("Admin Overview View Missing Or Not Accessible.");
+            return;
+        }
+
+        document.getElementById("overview").innerHTML = `
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Workshops</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_workshops}</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Users</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_users}</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Scans</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_scans}</div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="ty-caption" style="color:#7A8C92;">Total Points</div>
+          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_points}</div>
+        </div>
+      `;
+
+        // Global promo create
+        document.getElementById("globalPromoForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const f = e.target;
+
+            const title = f.title.value.trim();
+            const imageUrl = f.imageUrl.value.trim();
+            const requiredPoints = f.requiredPoints.value.trim();
+            const description = f.description.value.trim();
+
+            if (!title || !imageUrl || !description) {
+                alert("Please Fill In Title, Image Url, And Description.");
+                return;
+            }
+
+            try {
+                await createPromotion({
+                    title,
+                    description,
+                    imageUrl,
+                    requiredPoints,
+                    workshopId: null
+                });
+
+                alert("Global Promotion Published.");
+                f.reset();
+            } catch (err) {
+                alert(err.message || "Error Publishing Promotion.");
+            }
+        });
+    })();
+</script>
+</body>
+</html>

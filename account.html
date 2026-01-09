@@ -72,7 +72,7 @@
         </form>
     </section>
 
-    <!-- Password update -->
+    <!-- Password update - Remplacer la section -->
     <section class="card p-6">
         <h2 class="ty-subtitle-1 mb-4">Password</h2>
 
@@ -80,6 +80,10 @@
             <div>
                 <label class="ty-caption">New Password</label>
                 <input name="password" type="password" class="input w-full mt-1">
+            </div>
+            <div>
+                <label class="ty-caption">Confirm Password</label>
+                <input name="confirmPassword" type="password" class="input w-full mt-1">
             </div>
 
             <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
@@ -107,10 +111,7 @@
         document.querySelector('[name="phone"]').value = profile?.phone || "";
         document.querySelector('[name="address"]').value = profile?.address || "";
 
-        const phone = e.target.phone.value.trim();
-        if (!isValidPhone(phone)) return alert("Please Enter A Valid Phone Number.");
-
-        // Update profile (phone, address, name)
+        // Update profile
         document.getElementById("profileForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
@@ -126,7 +127,10 @@
                 .eq("id", session.user.id);
 
             if (error) alert(error.message);
-            else alert("Profile Updated Successfully.");
+            else {
+                alert("Profile Updated Successfully.");
+                location.reload();
+            }
         });
 
         // Update email
@@ -136,30 +140,33 @@
             const email = e.target.email.value.trim();
             if (!email) return alert("Please Enter A New Email.");
 
-            const { error } = await supabaseClient.auth.updateUser({ email });
+            const {error} = await supabaseClient.auth.updateUser({email});
 
             if (error) {
                 alert(error.message);
                 return;
             }
 
-            alert("Please Check Your New Email To Confirm The Change. You Will Be Signed Out Now.");
-
-            await supabaseClient.auth.signOut();
-            window.location.href = "login.html";
+            alert("Please Check Your New Email To Confirm The Change.");
         });
 
-        // Update password
+        // Update password avec confirmation
         document.getElementById("passwordForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const password = e.target.password.value.trim();
+            const confirmPassword = e.target.confirmPassword.value.trim();
+
             if (!password) return alert("Please Enter A New Password.");
+            if (password !== confirmPassword) return alert("Passwords Do Not Match.");
 
             const {error} = await supabaseClient.auth.updateUser({password});
 
             if (error) alert(error.message);
-            else alert("Password Updated Successfully.");
+            else {
+                alert("Password Updated Successfully.");
+                e.target.reset();
+            }
         });
     });
 </script>
