@@ -23,8 +23,19 @@
                 <script>
                     // Charger Google Places API dynamiquement
                     const script = document.createElement('script');
-                    script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_API_KEY}&libraries=places`;
+                    script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_API_KEY}&libraries=places&callback=onGoogleMapsLoaded`;
+                    script.async = true;
+                    script.defer = true;
                     document.head.appendChild(script);
+
+                    let googleMapsLoaded = false;
+
+                    function onGoogleMapsLoaded() {
+                        googleMapsLoaded = true;
+                        if (document.getElementById("addressInput")) {
+                            initAutocomplete();
+                        }
+                    }
                 </script>
 
             </head>
@@ -114,11 +125,10 @@
 
                 function initAutocomplete() {
                     const addressInput = document.getElementById("addressInput");
+                    if (!addressInput || !window.google) return;
 
                     autocomplete = new google.maps.places.Autocomplete(addressInput, {
                         types: ["address"],
-                        // Optionnel : limiter à un pays (exemple: Thaïlande)
-                        // componentRestrictions: { country: "th" }
                     });
 
                     autocomplete.addListener("place_changed", () => {
@@ -143,8 +153,10 @@
                     document.querySelector('[name="phone"]').value = profile?.phone || "";
                     document.getElementById("addressInput").value = profile?.address || "";
 
-                    // Initialiser l'autocomplete
-                    initAutocomplete();
+                    // Initialiser l'autocomplete seulement si Google Maps est chargé
+                    if (googleMapsLoaded) {
+                        initAutocomplete();
+                    }
 
                     // Update profile
                     document.getElementById("profileForm").addEventListener("submit", async (e) => {
