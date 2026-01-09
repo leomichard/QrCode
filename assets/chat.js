@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch('https://eagqsyunshkveofnpcxb.supabase.co/functions/v1/chat', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZ3FzeXVuc2hrdmVvZm5wY3hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3ODQ2NTEsImV4cCI6MjA4MzM2MDY1MX0.U_p8xJAA4yKZO3P1x32csnlFcRnX1_xuR85mIyTRak4'
+                },
                 body: JSON.stringify({ message: text })
             });
             const data = await res.json();
@@ -34,13 +37,3 @@ document.addEventListener('DOMContentLoaded', () => {
     send.addEventListener('click', sendMessage);
     input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 });
-
-const res = await fetch('https://eagqsyunshkveofnpcxb.supabase.co/functions/v1/chat', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZ3FzeXVuc2hrdmVvZm5wY3hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3ODQ2NTEsImV4cCI6MjA4MzM2MDY1MX0.U_p8xJAA4yKZO3P1x32csnlFcRnX1_xuR85mIyTRak4' // Ta clé anon publique
-    },
-    body: JSON.stringify({ message: text })
-});
-
