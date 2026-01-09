@@ -59,7 +59,7 @@
         <form id="emailForm" class="space-y-4">
             <div>
                 <label class="ty-caption">New Email</label>
-                <input name="email" type="email" class="input w-full mt-1">
+                <input id="newEmail" name="email" type="email" class="input w-full mt-1">
             </div>
 
             <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
@@ -72,18 +72,18 @@
         </form>
     </section>
 
-    <!-- Password update - Remplacer la section -->
+    <!-- Password update -->
     <section class="card p-6">
         <h2 class="ty-subtitle-1 mb-4">Password</h2>
 
         <form id="passwordForm" class="space-y-4">
             <div>
                 <label class="ty-caption">New Password</label>
-                <input name="password" type="password" class="input w-full mt-1">
+                <input id="newPassword" name="password" type="password" class="input w-full mt-1">
             </div>
             <div>
                 <label class="ty-caption">Confirm Password</label>
-                <input name="confirmPassword" type="password" class="input w-full mt-1">
+                <input id="confirmPassword" name="confirmPassword" type="password" class="input w-full mt-1">
             </div>
 
             <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
@@ -116,9 +116,9 @@
             e.preventDefault();
 
             const updates = {
-                full_name: e.target.full_name.value.trim(),
-                phone: e.target.phone.value.trim(),
-                address: e.target.address.value.trim()
+                full_name: document.querySelector('[name="full_name"]').value.trim(),
+                phone: document.querySelector('[name="phone"]').value.trim(),
+                address: document.querySelector('[name="address"]').value.trim()
             };
 
             const {error} = await supabaseClient
@@ -126,46 +126,48 @@
                 .update(updates)
                 .eq("id", session.user.id);
 
-            if (error) alert(error.message);
-            else {
+            if (error) {
+                alert(error.message);
+            } else {
                 alert("Profile Updated Successfully.");
                 location.reload();
             }
         });
 
-        // Update email
+        // Update email (indépendant)
         document.getElementById("emailForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const email = e.target.email.value.trim();
+            const email = document.getElementById("newEmail").value.trim();
             if (!email) return alert("Please Enter A New Email.");
 
             const {error} = await supabaseClient.auth.updateUser({email});
 
             if (error) {
                 alert(error.message);
-                return;
+            } else {
+                alert("Please Check Your New Email To Confirm The Change.");
+                document.getElementById("emailForm").reset();
             }
-
-            alert("Please Check Your New Email To Confirm The Change.");
         });
 
-        // Update password avec confirmation
+        // Update password (indépendant)
         document.getElementById("passwordForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const password = e.target.password.value.trim();
-            const confirmPassword = e.target.confirmPassword.value.trim();
+            const password = document.getElementById("newPassword").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
             if (!password) return alert("Please Enter A New Password.");
             if (password !== confirmPassword) return alert("Passwords Do Not Match.");
 
             const {error} = await supabaseClient.auth.updateUser({password});
 
-            if (error) alert(error.message);
-            else {
+            if (error) {
+                alert(error.message);
+            } else {
                 alert("Password Updated Successfully.");
-                e.target.reset();
+                document.getElementById("passwordForm").reset();
             }
         });
     });
