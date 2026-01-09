@@ -1,183 +1,208 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
-    <title>My Account • Quartz</title>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width,initial-scale=1"/>
+                <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+                <title>My Account • Quartz</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
-          rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Roboto:wght@400;500&display=swap"
+                      rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/app.css"/>
+                <script src="https://cdn.tailwindcss.com"></script>
+                <link rel="stylesheet" href="assets/app.css"/>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/supabase-client.js"></script>
-    <script src="assets/auth.js"></script>
-    <script src="assets/app-api.js"></script>
-</head>
+                <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+                <script src="assets/supabase-client.js"></script>
+                <script src="assets/auth.js"></script>
+                <script src="assets/app-api.js"></script>
 
-<body class="min-h-screen">
-<div id="site-header"></div>
+                <!-- Google Places API -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwJEFJ3CNlbo8ISqe-Nl20CDPvWgUDLA&libraries=places"></script>
+            </head>
 
-<main class="max-w-2xl mx-auto px-4 py-12">
-    <h1 class="ty-headline mb-6">My Account</h1>
+            <body class="min-h-screen">
+            <div id="site-header"></div>
 
-    <!-- Profile info -->
-    <section class="card p-6 mb-6">
-        <h2 class="ty-subtitle-1 mb-4">Profile Information</h2>
+            <main class="max-w-2xl mx-auto px-4 py-12">
+                <h1 class="ty-headline mb-6">My Account</h1>
 
-        <form id="profileForm" class="space-y-4">
-            <div>
-                <label class="ty-caption">Full Name</label>
-                <input name="full_name" class="input w-full mt-1">
-            </div>
+                <!-- Profile info -->
+                <section class="card p-6 mb-6">
+                    <h2 class="ty-subtitle-1 mb-4">Profile Information</h2>
 
-            <div>
-                <label class="ty-caption">Phone Number</label>
-                <input name="phone" class="input w-full mt-1" placeholder="+66...">
-            </div>
+                    <form id="profileForm" class="space-y-4">
+                        <div>
+                            <label class="ty-caption">Full Name</label>
+                            <input name="full_name" class="input w-full mt-1">
+                        </div>
 
-            <div>
-                <label class="ty-caption">Address</label>
-                <textarea name="address" class="input w-full mt-1" rows="3"></textarea>
-            </div>
+                        <div>
+                            <label class="ty-caption">Phone Number</label>
+                            <input name="phone" class="input w-full mt-1" placeholder="+66...">
+                        </div>
 
-            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
-                Save Profile
-            </button>
-        </form>
-    </section>
+                        <div>
+                            <label class="ty-caption">Address</label>
+                            <input id="addressInput" name="address" class="input w-full mt-1" placeholder="Start typing your address...">
+                        </div>
 
-    <!-- Email update -->
-    <section class="card p-6 mb-6">
-        <h2 class="ty-subtitle-1 mb-4">Email Address</h2>
+                        <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                            Save Profile
+                        </button>
+                    </form>
+                </section>
 
-        <form id="emailForm" class="space-y-4">
-            <div>
-                <label class="ty-caption">New Email</label>
-                <input id="newEmail" name="email" type="email" class="input w-full mt-1">
-            </div>
-            <div>
-                <label class="ty-caption">Confirm New Email</label>
-                <input id="confirmEmail" name="confirmEmail" type="password" class="input w-full mt-1">
-            </div>
+                <!-- Email update -->
+                <section class="card p-6 mb-6">
+                    <h2 class="ty-subtitle-1 mb-4">Email Address</h2>
 
-            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
-                Update Email
-            </button>
+                    <form id="emailForm" class="space-y-4">
+                        <div>
+                            <label class="ty-caption">New Email</label>
+                            <input id="newEmail" name="email" type="email" class="input w-full mt-1">
+                        </div>
+                        <div>
+                            <label class="ty-caption">Confirm New Email</label>
+                            <input id="confirmEmail" name="confirmEmail" type="email" class="input w-full mt-1">
+                        </div>
 
-            <p class="ty-caption text-slate-500">
-                A Confirmation Email Will Be Sent To The New Address.
-            </p>
-        </form>
-    </section>
+                        <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                            Update Email
+                        </button>
 
-    <!-- Password update -->
-    <section class="card p-6">
-        <h2 class="ty-subtitle-1 mb-4">Password</h2>
+                        <p class="ty-caption text-slate-500">
+                            A Confirmation Email Will Be Sent To The New Address.
+                        </p>
+                    </form>
+                </section>
 
-        <form id="passwordForm" class="space-y-4">
-            <div>
-                <label class="ty-caption">New Password</label>
-                <input id="newPassword" name="password" type="password" class="input w-full mt-1">
-            </div>
-            <div>
-                <label class="ty-caption">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" class="input w-full mt-1">
-            </div>
+                <!-- Password update -->
+                <section class="card p-6">
+                    <h2 class="ty-subtitle-1 mb-4">Password</h2>
 
-            <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
-                Update Password
-            </button>
-        </form>
-    </section>
-</main>
+                    <form id="passwordForm" class="space-y-4">
+                        <div>
+                            <label class="ty-caption">New Password</label>
+                            <input id="newPassword" name="password" type="password" class="input w-full mt-1">
+                        </div>
+                        <div>
+                            <label class="ty-caption">Confirm Password</label>
+                            <input id="confirmPassword" name="confirmPassword" type="password" class="input w-full mt-1">
+                        </div>
 
-<div id="site-footer"></div>
-<script src="assets/include.js"></script>
+                        <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
+                            Update Password
+                        </button>
+                    </form>
+                </section>
+            </main>
 
-<script>
-    document.addEventListener("DOMContentLoaded", async () => {
-        const {data: {session}} = await supabaseClient.auth.getSession();
-        if (!session) {
-            window.location.href = "login.html";
-            return;
-        }
+            <div id="site-footer"></div>
+            <script src="assets/include.js"></script>
 
-        const profile = await getMyProfile();
+            <script>
+                let autocomplete;
 
-        // Prefill profile
-        document.querySelector('[name="full_name"]').value = profile?.full_name || "";
-        document.querySelector('[name="phone"]').value = profile?.phone || "";
-        document.querySelector('[name="address"]').value = profile?.address || "";
+                function initAutocomplete() {
+                    const addressInput = document.getElementById("addressInput");
 
-        // Update profile
-        document.getElementById("profileForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+                    autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                        types: ["address"],
+                        // Optionnel : limiter à un pays (exemple: Thaïlande)
+                        // componentRestrictions: { country: "th" }
+                    });
 
-            const updates = {
-                full_name: document.querySelector('[name="full_name"]').value.trim(),
-                phone: document.querySelector('[name="phone"]').value.trim(),
-                address: document.querySelector('[name="address"]').value.trim()
-            };
+                    autocomplete.addListener("place_changed", () => {
+                        const place = autocomplete.getPlace();
+                        if (place.formatted_address) {
+                            addressInput.value = place.formatted_address;
+                        }
+                    });
+                }
 
-            const {error} = await supabaseClient
-                .from("profiles")
-                .update(updates)
-                .eq("id", session.user.id);
+                document.addEventListener("DOMContentLoaded", async () => {
+                    const {data: {session}} = await supabaseClient.auth.getSession();
+                    if (!session) {
+                        window.location.href = "login.html";
+                        return;
+                    }
 
-            if (error) {
-                alert(error.message);
-            } else {
-                alert("Profile Updated Successfully.");
-                location.reload();
-            }
-        });
+                    const profile = await getMyProfile();
 
-        // Update email (indépendant)
-        document.getElementById("emailForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+                    // Prefill profile
+                    document.querySelector('[name="full_name"]').value = profile?.full_name || "";
+                    document.querySelector('[name="phone"]').value = profile?.phone || "";
+                    document.getElementById("addressInput").value = profile?.address || "";
 
-            const email = document.getElementById("newEmail").value.trim();
-            const confirmEmail = document.getElementById("confirmEmail").value.trim();
+                    // Initialiser l'autocomplete
+                    initAutocomplete();
 
-            if (!email) return alert("Please Enter A New Email.");
-            if (email !== confirmEmail) return alert("Passwords Do Not Match.");
+                    // Update profile
+                    document.getElementById("profileForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
 
-            const {error} = await supabaseClient.auth.updateUser({email});
+                        const updates = {
+                            full_name: document.querySelector('[name="full_name"]').value.trim(),
+                            phone: document.querySelector('[name="phone"]').value.trim(),
+                            address: document.getElementById("addressInput").value.trim()
+                        };
 
-            if (error) {
-                alert(error.message);
-            } else {
-                alert("Please Check Your New Email To Confirm The Change.");
-                document.getElementById("emailForm").reset();
-            }
-        });
+                        const {error} = await supabaseClient
+                            .from("profiles")
+                            .update(updates)
+                            .eq("id", session.user.id);
 
-        // Update password (indépendant)
-        document.getElementById("passwordForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+                        if (error) {
+                            alert(error.message);
+                        } else {
+                            alert("Profile Updated Successfully.");
+                            location.reload();
+                        }
+                    });
 
-            const password = document.getElementById("newPassword").value.trim();
-            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+                    // Update email
+                    document.getElementById("emailForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
 
-            if (!password) return alert("Please Enter A New Password.");
-            if (password !== confirmPassword) return alert("Passwords Do Not Match.");
+                        const email = document.getElementById("newEmail").value.trim();
+                        const confirmEmail = document.getElementById("confirmEmail").value.trim();
 
-            const {error} = await supabaseClient.auth.updateUser({password});
+                        if (!email) return alert("Please Enter A New Email.");
+                        if (email !== confirmEmail) return alert("Emails Do Not Match.");
 
-            if (error) {
-                alert(error.message);
-            } else {
-                alert("Password Updated Successfully.");
-                document.getElementById("passwordForm").reset();
-            }
-        });
-    });
-</script>
-</body>
-</html>
+                        const {error} = await supabaseClient.auth.updateUser({email});
+
+                        if (error) {
+                            alert(error.message);
+                        } else {
+                            alert("Please Check Your New Email To Confirm The Change.");
+                            document.getElementById("emailForm").reset();
+                        }
+                    });
+
+                    // Update password
+                    document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+                        e.preventDefault();
+
+                        const password = document.getElementById("newPassword").value.trim();
+                        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+                        if (!password) return alert("Please Enter A New Password.");
+                        if (password !== confirmPassword) return alert("Passwords Do Not Match.");
+
+                        const {error} = await supabaseClient.auth.updateUser({password});
+
+                        if (error) {
+                            alert(error.message);
+                        } else {
+                            alert("Password Updated Successfully.");
+                            document.getElementById("passwordForm").reset();
+                        }
+                    });
+                });
+            </script>
+            </body>
+            </html>
