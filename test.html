@@ -23,7 +23,7 @@
         model-viewer {
             width: 100%;
             height: 520px;
-            background: rgba(10, 15, 31, 0.4);
+            background: rgb(255, 255, 255);
             border-radius: 24px;
             border: 1px solid rgba(0, 229, 255, 0.25);
             overflow: hidden;
@@ -33,7 +33,19 @@
 
 <body>
 <div id="site-header"></div>
-
+<main style="max-width:1100px;margin:0 auto;padding:10px 16px 30px;">
+    <section class="card" style="padding:22px;">
+        <h1 class="ty-headline">3D Model Test Page</h1>
+        <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
+            The goal of this page is to test the integration of a 3D model viewer using the &lt;model-viewer&gt; web component.
+            <br>
+            Below is a sample 3D model of a quartz box that can be interacted with.
+            <br>
+            This type of viewer can be used to showcase products in a more engaging way. In the home page for example.
+            <br> Please note that the model is not good-looking at all, it's just for testing purposes.
+                    </p>
+    </section>
+</main>
 <!-- Viewer -->
 <div class="lg:col-span-1" style="max-width:720px;margin:30px auto 60px;">
     <model-viewer
