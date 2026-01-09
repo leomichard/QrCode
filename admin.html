@@ -44,7 +44,7 @@
 
                 <div>
                     <label class="ty-caption">Image (URL or file)</label>
-                    <input class="input ty-body-2" name="imageUrl" placeholder="Image Url (Optionnal)"/>
+                    <input class="input ty-body-2" name="imageUrl" placeholder="Image Url (Optional)"/>
                     <input type="file" name="imageFile" accept="image/*" class="input ty-body-2" style="margin-top:6px;"/>
                 </div>
 
@@ -52,6 +52,13 @@
                 <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
                 <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
             </form>
+        </section>
+
+        <!-- Liste des promotions -->
+        <section class="card" style="padding:22px;margin-top:14px;">
+            <h2 class="ty-headline">Manage Promotions</h2>
+            <p class="ty-body-2" style="margin-top:6px;color:#55666A;">View and delete existing promotions.</p>
+            <div id="promotionsList" style="margin-top:14px;display:grid;gap:10px;"></div>
         </section>
     </section>
 </main>
@@ -65,6 +72,50 @@
 <script src="assets/include.js"></script>
 
 <script>
+    async function loadPromotions() {
+        const {data: promotions, error} = await supabaseClient
+            .from("promotions")
+            .select("*")
+            .order("created_at", {ascending: false});
+
+        const container = document.getElementById("promotionsList");
+
+        if (error || !promotions?.length) {
+            container.innerHTML = '<p class="ty-body-2" style="color:#7A8C92;">No promotions found.</p>';
+            return;
+        }
+
+        container.innerHTML = promotions.map(promo => `
+            <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;">
+                <img src="${promo.image_url}" alt="${promo.title}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;"/>
+                <div style="flex:1;">
+                    <div class="ty-subtitle-2">${promo.title}</div>
+                    <div class="ty-caption" style="color:#7A8C92;">${promo.required_points || 0} points</div>
+                </div>
+                <button class="btn-danger" onclick="deletePromotion('${promo.id}')" style="padding:8px 12px;background:#ef4444;color:white;border:none;border-radius:8px;cursor:pointer;">
+                    Delete
+                </button>
+            </div>
+        `).join("");
+    }
+
+    async function deletePromotion(id) {
+        if (!confirm("Are you sure you want to delete this promotion?")) return;
+
+        const {error} = await supabaseClient
+            .from("promotions")
+            .delete()
+            .eq("id", id);
+
+        if (error) {
+            alert("Error deleting promotion: " + error.message);
+            return;
+        }
+
+        alert("Promotion deleted successfully.");
+        await loadPromotions();
+    }
+
     (async () => {
         await refreshSession();
         const profile = await getMyProfile();
@@ -76,7 +127,6 @@
 
         document.getElementById("content").style.display = "";
 
-        // Overview via view v_admin_overview (you created it earlier)
         const {data: overview, error} = await supabaseClient.from("v_admin_overview").select("*").single();
         if (error) {
             alert("Admin Overview View Missing Or Not Accessible.");
@@ -84,25 +134,27 @@
         }
 
         document.getElementById("overview").innerHTML = `
-        <div class="card" style="padding:16px;">
-          <div class="ty-caption" style="color:#7A8C92;">Total Workshops</div>
-          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_workshops}</div>
-        </div>
-        <div class="card" style="padding:16px;">
-          <div class="ty-caption" style="color:#7A8C92;">Total Users</div>
-          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_users}</div>
-        </div>
-        <div class="card" style="padding:16px;">
-          <div class="ty-caption" style="color:#7A8C92;">Total Scans</div>
-          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_scans}</div>
-        </div>
-        <div class="card" style="padding:16px;">
-          <div class="ty-caption" style="color:#7A8C92;">Total Points</div>
-          <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_points}</div>
-        </div>
-      `;
+            <div class="card" style="padding:16px;">
+                <div class="ty-caption" style="color:#7A8C92;">Total Workshops</div>
+                <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_workshops}</div>
+            </div>
+            <div class="card" style="padding:16px;">
+                <div class="ty-caption" style="color:#7A8C92;">Total Users</div>
+                <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_users}</div>
+            </div>
+            <div class="card" style="padding:16px;">
+                <div class="ty-caption" style="color:#7A8C92;">Total Scans</div>
+                <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_scans}</div>
+            </div>
+            <div class="card" style="padding:16px;">
+                <div class="ty-caption" style="color:#7A8C92;">Total Points</div>
+                <div class="ty-keyfigure" style="margin-top:6px;">${overview.total_points}</div>
+            </div>
+        `;
 
-        // Global promo create
+        // Charger les promotions existantes
+        await loadPromotions();
+
         document.getElementById("globalPromoForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const f = e.target;
@@ -113,7 +165,6 @@
             const requiredPoints = f.requiredPoints.value.trim();
             const description = f.description.value.trim();
 
-            // Upload file si fourni
             if (imageFile) {
                 const fileName = `promo_${Date.now()}_${imageFile.name}`;
                 const {data, error: uploadError} = await supabaseClient.storage
@@ -138,6 +189,7 @@
                 await createPromotion({title, description, imageUrl, requiredPoints, workshopId: null});
                 alert("Global Promotion Published.");
                 f.reset();
+                await loadPromotions();
             } catch (err) {
                 alert(err.message || "Error Publishing Promotion.");
             }
