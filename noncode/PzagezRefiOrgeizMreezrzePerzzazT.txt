@@ -1,7 +1,2 @@
-Dans admin.html quand j'essaye d'ajouter une image et de publier la promo, j'ai ce message
-Error uploading image: Bucket not found
-
-J'ai toujopurs l'erreur Error uploading image: Bucket not found
-et j'ai cette erreur lorsque j'essaie de mettre a jour mon mail ou mon mdp
-Ils devront d'ailleur pouvoir etre mis a jour independamment l'un de l'autre
-Could not find the 'address' column of 'profiles' in the schema cache
+je devrais pouvoir dans admin.html
+manage promotions, avoir une fonctionnalité pour modifier les promotions existantes

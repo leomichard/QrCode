@@ -34,30 +34,36 @@
         <div id="overview" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;"></div>
 
         <section class="card" style="padding:22px;margin-top:14px;">
-            <h2 class="ty-headline">Create Global Promotion</h2>
+            <h2 class="ty-headline" id="formTitle">Create Global Promotion</h2>
             <p class="ty-body-2" style="margin-top:6px;color:#55666A;">
                 Global Promotions Have No Workshop Id And Are Visible To Everyone.
             </p>
 
             <form id="globalPromoForm" style="margin-top:14px;display:grid;gap:10px;">
+                <input type="hidden" name="promoId" value=""/>
                 <input class="input ty-body-2" name="title" placeholder="Title"/>
 
                 <div>
                     <label class="ty-caption">Image (URL or file)</label>
                     <input class="input ty-body-2" name="imageUrl" placeholder="Image Url (Optional)"/>
                     <input type="file" name="imageFile" accept="image/*" class="input ty-body-2" style="margin-top:6px;"/>
+                    <img id="currentImage" src="" alt="Current image" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:8px;margin-top:6px;"/>
                 </div>
 
                 <input class="input ty-body-2" name="requiredPoints" placeholder="Required Points (Example: 500)"/>
                 <textarea class="input ty-body-2" name="description" placeholder="Description" rows="4"></textarea>
-                <button class="btn btn-primary ty-button" type="submit">Publish Global Promotion</button>
+
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-primary ty-button" type="submit" id="submitBtn">Publish Global Promotion</button>
+                    <button type="button" id="cancelEdit" class="btn ty-button" style="display:none;background:#6b7280;color:white;">Cancel</button>
+                </div>
             </form>
         </section>
 
         <!-- Liste des promotions -->
         <section class="card" style="padding:22px;margin-top:14px;">
             <h2 class="ty-headline">Manage Promotions</h2>
-            <p class="ty-body-2" style="margin-top:6px;color:#55666A;">View and delete existing promotions.</p>
+            <p class="ty-body-2" style="margin-top:6px;color:#55666A;">View, edit and delete existing promotions.</p>
             <div id="promotionsList" style="margin-top:14px;display:grid;gap:10px;"></div>
         </section>
     </section>
@@ -72,6 +78,8 @@
 <script src="assets/include.js"></script>
 
 <script>
+    let editingPromoId = null;
+
     async function loadPromotions() {
         const {data: promotions, error} = await supabaseClient
             .from("promotions")
@@ -86,17 +94,70 @@
         }
 
         container.innerHTML = promotions.map(promo => `
-            <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;">
+            <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
                 <img src="${promo.image_url}" alt="${promo.title}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;"/>
-                <div style="flex:1;">
+                <div style="flex:1;min-width:150px;">
                     <div class="ty-subtitle-2">${promo.title}</div>
                     <div class="ty-caption" style="color:#7A8C92;">${promo.required_points || 0} points</div>
                 </div>
-                <button class="btn-danger" onclick="deletePromotion('${promo.id}')" style="padding:8px 12px;background:#ef4444;color:white;border:none;border-radius:8px;cursor:pointer;">
-                    Delete
-                </button>
+                <div style="display:flex;gap:8px;">
+                    <button onclick="editPromotion('${promo.id}')" style="padding:8px 12px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;">
+                        Edit
+                    </button>
+                    <button onclick="deletePromotion('${promo.id}')" style="padding:8px 12px;background:#ef4444;color:white;border:none;border-radius:8px;cursor:pointer;">
+                        Delete
+                    </button>
+                </div>
             </div>
         `).join("");
+    }
+
+    async function editPromotion(id) {
+        const {data: promo, error} = await supabaseClient
+            .from("promotions")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+        if (error || !promo) {
+            alert("Error loading promotion.");
+            return;
+        }
+
+        editingPromoId = id;
+        const form = document.getElementById("globalPromoForm");
+
+        form.promoId.value = id;
+        form.title.value = promo.title || "";
+        form.imageUrl.value = promo.image_url || "";
+        form.requiredPoints.value = promo.required_points || "";
+        form.description.value = promo.description || "";
+
+        // Afficher l'image actuelle
+        const currentImg = document.getElementById("currentImage");
+        if (promo.image_url) {
+            currentImg.src = promo.image_url;
+            currentImg.style.display = "block";
+        }
+
+        document.getElementById("formTitle").textContent = "Edit Promotion";
+        document.getElementById("submitBtn").textContent = "Update Promotion";
+        document.getElementById("cancelEdit").style.display = "block";
+
+        // Scroll vers le formulaire
+        form.scrollIntoView({behavior: "smooth"});
+    }
+
+    function resetForm() {
+        editingPromoId = null;
+        const form = document.getElementById("globalPromoForm");
+        form.reset();
+        form.promoId.value = "";
+
+        document.getElementById("currentImage").style.display = "none";
+        document.getElementById("formTitle").textContent = "Create Global Promotion";
+        document.getElementById("submitBtn").textContent = "Publish Global Promotion";
+        document.getElementById("cancelEdit").style.display = "none";
     }
 
     async function deletePromotion(id) {
@@ -113,6 +174,7 @@
         }
 
         alert("Promotion deleted successfully.");
+        if (editingPromoId === id) resetForm();
         await loadPromotions();
     }
 
@@ -152,22 +214,25 @@
             </div>
         `;
 
-        // Charger les promotions existantes
         await loadPromotions();
+
+        // Bouton annuler
+        document.getElementById("cancelEdit").addEventListener("click", resetForm);
 
         document.getElementById("globalPromoForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const f = e.target;
 
+            const promoId = f.promoId.value;
             const title = f.title.value.trim();
             let imageUrl = f.imageUrl.value.trim();
             const imageFile = f.imageFile.files[0];
-            const requiredPoints = f.requiredPoints.value.trim();
+            const requiredPoints = parseInt(f.requiredPoints.value.trim()) || 0;
             const description = f.description.value.trim();
 
             if (imageFile) {
                 const fileName = `promo_${Date.now()}_${imageFile.name}`;
-                const {data, error: uploadError} = await supabaseClient.storage
+                const {error: uploadError} = await supabaseClient.storage
                     .from("promotions")
                     .upload(fileName, imageFile);
 
@@ -186,12 +251,30 @@
             }
 
             try {
-                await createPromotion({title, description, imageUrl, requiredPoints, workshopId: null});
-                alert("Global Promotion Published.");
-                f.reset();
+                if (promoId) {
+                    // Mode édition
+                    const {error} = await supabaseClient
+                        .from("promotions")
+                        .update({
+                            title,
+                            description,
+                            image_url: imageUrl,
+                            required_points: requiredPoints
+                        })
+                        .eq("id", promoId);
+
+                    if (error) throw error;
+                    alert("Promotion Updated Successfully.");
+                } else {
+                    // Mode création
+                    await createPromotion({title, description, imageUrl, requiredPoints, workshopId: null});
+                    alert("Global Promotion Published.");
+                }
+
+                resetForm();
                 await loadPromotions();
             } catch (err) {
-                alert(err.message || "Error Publishing Promotion.");
+                alert(err.message || "Error saving promotion.");
             }
         });
     })();

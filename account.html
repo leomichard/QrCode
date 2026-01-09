@@ -61,6 +61,10 @@
                 <label class="ty-caption">New Email</label>
                 <input id="newEmail" name="email" type="email" class="input w-full mt-1">
             </div>
+            <div>
+                <label class="ty-caption">Confirm New Email</label>
+                <input id="confirmEmail" name="confirmEmail" type="password" class="input w-full mt-1">
+            </div>
 
             <button type="submit" class="btn-primary rounded-xl px-4 py-3 ty-subtitle-2">
                 Update Email
@@ -139,7 +143,10 @@
             e.preventDefault();
 
             const email = document.getElementById("newEmail").value.trim();
+            const confirmEmail = document.getElementById("confirmEmail").value.trim();
+
             if (!email) return alert("Please Enter A New Email.");
+            if (email !== confirmEmail) return alert("Passwords Do Not Match.");
 
             const {error} = await supabaseClient.auth.updateUser({email});
 
